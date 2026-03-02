@@ -1,0 +1,2595 @@
+@import "tailwindcss";
+
+/* ============================================================================
+   ECODIA DESIGN SYSTEM — Tailwind CSS 4
+   Neo-Pop Brutalist · Mobile-Native · Touch-First
+   Unified branding across ecodia-site & frontend | 2026-02-24
+   ============================================================================
+
+   AESTHETIC PRINCIPLES:
+   ─ Bold, saturated color (mint / gold / forest) — never pastel
+   ─ Hard offset shadows (no blur) for depth — the neo-pop signature
+   ─ Thick 2–4px borders on feature cards & hero elements
+   ─ Asymmetric border-radius mixes (organic curves + hard geometry)
+   ─ Multi-layer gradients (radial orbs, 3-layer button shadows)
+   ─ Glassmorphism + paper textures for analog warmth
+   ─ Scale-based press feedback (0.96 squish, 40ms snap)
+   ─ UPPERCASE Fjalla One headings, monospace tech stamps
+   ─ Every token fluid, every tap 44px+, every scroll momentum
+
+   ============================================================================ */
+
+/* === Tailwind 4 Theme Extensions ===
+   Maps CSS custom properties to Tailwind utility classes.
+   e.g. --color-brand-forest → bg-brand-forest, text-brand-forest, etc.
+   Synchronized with ecodia-site design system.
+   ================================================================== */
+@theme inline {
+  /* Brand palette */
+  --color-brand-forest: var(--ec-forest-800);
+  --color-brand-mint: var(--ec-mint-500);
+  --color-brand-sun: var(--ec-gold-500);
+  --color-brand-cream: var(--ec-pearl);
+  --color-brand-white: var(--ec-white);
+  --color-brand-black: var(--ec-black);
+
+  /* Brand scales */
+  --color-mint-50: var(--ec-mint-50);
+  --color-mint-100: var(--ec-mint-100);
+  --color-mint-200: var(--ec-mint-200);
+  --color-mint-300: var(--ec-mint-300);
+  --color-mint-400: var(--ec-mint-400);
+  --color-mint-500: var(--ec-mint-500);
+  --color-mint-600: var(--ec-mint-600);
+  --color-mint-700: var(--ec-mint-700);
+  --color-mint-800: var(--ec-mint-800);
+  --color-mint-900: var(--ec-mint-900);
+
+  --color-gold-50: var(--ec-gold-50);
+  --color-gold-100: var(--ec-gold-100);
+  --color-gold-200: var(--ec-gold-200);
+  --color-gold-300: var(--ec-gold-300);
+  --color-gold-400: var(--ec-gold-400);
+  --color-gold-500: var(--ec-gold-500);
+  --color-gold-600: var(--ec-gold-600);
+  --color-gold-700: var(--ec-gold-700);
+  --color-gold-800: var(--ec-gold-800);
+  --color-gold-900: var(--ec-gold-900);
+
+  --color-forest-50: var(--ec-forest-50);
+  --color-forest-100: var(--ec-forest-100);
+  --color-forest-200: var(--ec-forest-200);
+  --color-forest-300: var(--ec-forest-300);
+  --color-forest-400: var(--ec-forest-400);
+  --color-forest-500: var(--ec-forest-500);
+  --color-forest-600: var(--ec-forest-600);
+  --color-forest-700: var(--ec-forest-700);
+  --color-forest-800: var(--ec-forest-800);
+  --color-forest-900: var(--ec-forest-900);
+  --color-forest-950: var(--ec-forest-950);
+
+  --color-gray-50: var(--ec-gray-50);
+  --color-gray-100: var(--ec-gray-100);
+  --color-gray-200: var(--ec-gray-200);
+  --color-gray-300: var(--ec-gray-300);
+  --color-gray-400: var(--ec-gray-400);
+  --color-gray-500: var(--ec-gray-500);
+  --color-gray-600: var(--ec-gray-600);
+  --color-gray-700: var(--ec-gray-700);
+  --color-gray-800: var(--ec-gray-800);
+  --color-gray-900: var(--ec-gray-900);
+
+  /* Semantic surfaces */
+  --color-surface-base: var(--surface-base);
+  --color-surface-subtle: var(--surface-subtle);
+  --color-surface-elevated: var(--surface-elevated);
+  --color-surface-glass: var(--surface-glass);
+  --color-surface-glass-2: var(--surface-glass-2);
+
+  /* Semantic text */
+  --color-text-strong: var(--text-strong);
+  --color-text-base: var(--text-base);
+  --color-text-muted: var(--text-muted);
+  --color-text-subtle: var(--text-subtle);
+  --color-text-gold: var(--text-gold);
+  --color-text-link: var(--text-link);
+  --color-text-inverted: var(--text-inverted);
+
+  /* Status colors */
+  --color-danger: var(--ec-danger);
+  --color-danger-fg: var(--ec-danger-fg);
+  --color-success: var(--ec-success);
+  --color-success-fg: var(--ec-success-fg);
+  --color-warning: var(--ec-warning);
+  --color-warning-fg: var(--ec-warning-fg);
+  --color-info: var(--ec-info);
+  --color-info-fg: var(--ec-info-fg);
+
+  /* Border & ring */
+  --color-border: var(--border);
+  --color-border-subtle: var(--border-subtle);
+  --color-ring: var(--ring);
+
+  /* Font families — TW4 uses --font-{name} → font-{name} utility */
+  --font-heading: var(--ec-font-head);
+  --font-body: var(--ec-font-body);
+  --font-mono: var(--ec-font-mono);
+}
+
+/* ============================================================================
+   1. CSS CUSTOM PROPERTIES
+   ============================================================================ */
+
+:root {
+  /* ==========================================================================
+     1a. FLUID SCALE — Responsive spacing & type via clamp()
+     ========================================================================== */
+  --space-1: clamp(0.25rem, 0.2rem + 0.3vw, 0.5rem);
+  --space-2: clamp(0.5rem, 0.35rem + 0.6vw, 1rem);
+  --space-3: clamp(0.75rem, 0.55rem + 0.9vw, 1.5rem);
+  --space-4: clamp(1rem, 0.8rem + 1.2vw, 2rem);
+  --space-5: clamp(1.5rem, 1.1rem + 2vw, 3rem);
+  --space-6: clamp(2rem, 1.4rem + 2.5vw, 3.5rem);
+  --space-14: clamp(3.5rem, 2.5rem + 5.5vw, 6rem);
+
+  /* Fluid type scale */
+  --text-xs: clamp(0.75rem, 0.75rem + 0.1vw, 0.8rem);
+  --text-sm: clamp(0.875rem, 0.85rem + 0.15vw, 0.95rem);
+  --text-md: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+  --text-lg: clamp(1.125rem, 1.05rem + 0.4vw, 1.375rem);
+  --text-xl: clamp(1.25rem, 1.15rem + 1vw, 1.75rem);
+  --text-2xl: clamp(1.5rem, 1.3rem + 1.5vw, 2.25rem);
+  --text-3xl: clamp(1.875rem, 1.5rem + 2vw, 3rem);
+
+  /* ==========================================================================
+     1b. SAFE AREAS — Native device insets (notch, Dynamic Island, gesture bar)
+     ========================================================================== */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bot: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+
+  /* ==========================================================================
+     1c. BRAND PALETTE — Saturated, never pastel
+     ========================================================================== */
+  --ec-mint-50: #f1fbee;
+  --ec-mint-100: #e3f7de;
+  --ec-mint-200: #c7efbd;
+  --ec-mint-300: #aae79c;
+  --ec-mint-400: #8fde7f;
+  --ec-mint-500: #7fd069;
+  --ec-mint-600: #68b456;
+  --ec-mint-700: #519145;
+  --ec-mint-800: #407338;
+  --ec-mint-900: #345f2f;
+
+  --ec-gold-50: #fefcf6;
+  --ec-gold-100: #fef8e7;
+  --ec-gold-200: #fdf0c6;
+  --ec-gold-300: #fbe8a5;
+  --ec-gold-400: #f7de83;
+  --ec-gold-500: #f4d35e;
+  --ec-gold-600: #d9b84a;
+  --ec-gold-700: #b5973c;
+  --ec-gold-800: #907630;
+  --ec-gold-900: #745f28;
+
+  --ec-forest-50: #f3f7f4;
+  --ec-forest-100: #e8efea;
+  --ec-forest-200: #d1e0d6;
+  --ec-forest-300: #b9d0bf;
+  --ec-forest-400: #a2c1a9;
+  --ec-forest-500: #8ab192;
+  --ec-forest-600: #6f9779;
+  --ec-forest-700: #527c5e;
+  --ec-forest-800: #396041;
+  --ec-forest-900: #26492d;
+  --ec-forest-950: #2d4a33;
+
+  --ec-white: #ffffff;
+  --ec-pearl: #fbfdfc;
+  --ec-foam: #e6f1eb;
+  --ec-ink: #0e1511;
+  --ec-black: #000000;
+
+  --ec-gray-50: #f6f8f7;
+  --ec-gray-100: #edf0ef;
+  --ec-gray-200: #dbe2e0;
+  --ec-gray-300: #c6cecc;
+  --ec-gray-400: #a8b4b0;
+  --ec-gray-500: #8a9792;
+  --ec-gray-600: #6f7b76;
+  --ec-gray-700: #55605b;
+  --ec-gray-800: #2b3832;
+  --ec-gray-900: #0b1310;
+
+  /* ==========================================================================
+     1d. STATUS / SEMANTIC COLORS — Danger, success, warning, info
+     ========================================================================== */
+  --ec-danger: #ef4444;
+  --ec-danger-fg: #ffffff;
+  --ec-danger-subtle: #fef2f2;
+  --ec-danger-border: #fecaca;
+  --ec-danger-dark: #b91c1c;
+  --ec-danger-darkest: #7f1d1d;
+
+  --ec-success: #10b981;
+  --ec-success-fg: #ffffff;
+  --ec-success-subtle: #ecfdf5;
+  --ec-success-border: #a7f3d0;
+  --ec-success-dark: #1b7c36;
+
+  --ec-warning: var(--ec-gold-500);
+  --ec-warning-fg: #3a2a00;
+  --ec-warning-subtle: var(--ec-gold-50);
+  --ec-warning-border: var(--ec-gold-300);
+
+  --ec-info: #3b82f6;
+  --ec-info-fg: #ffffff;
+  --ec-info-subtle: #eff6ff;
+  --ec-info-border: #93c5fd;
+
+  /* ==========================================================================
+     1e. SEMANTIC SURFACE & TEXT TOKENS (Light Theme)
+     ========================================================================== */
+  --surface-base: var(--ec-pearl);
+  --surface-subtle: var(--ec-gray-50);
+  --surface-elevated: #f4d45e89;
+  --surface-glass: rgba(255, 255, 255, 0.75);
+  --surface-glass-2: rgba(255, 255, 255, 0.5);
+  --surface-scrim: rgba(0, 0, 0, 0.4);
+
+  --text-strong: var(--ec-forest-950);
+  --text-base: var(--ec-forest-800);
+  --text-muted: var(--ec-gray-600);
+  --text-subtle: var(--ec-gray-500);
+  --text-gold: var(--ec-gold-600);
+  --text-link: var(--ec-mint-700);
+  --text-inverted: var(--ec-white);
+
+  --border: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --ring: rgba(127, 208, 105, 0.35);
+
+  --on-brand-forest: var(--ec-white);
+  --on-brand-sun: var(--ec-forest-900);
+  --on-brand-mint: var(--ec-forest-950);
+
+  /* ==========================================================================
+     1f. TYPOGRAPHY — Fjalla One (display) / Inter (body) / JetBrains Mono (tech)
+     ========================================================================== */
+  --ec-font-head:
+    "Fjalla One", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --ec-font-body:
+    "Inter", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+  --ec-font-mono:
+    "JetBrains Mono", "SF Mono", "Fira Code", ui-monospace, monospace;
+
+  --ec-lh-tight: 1.1;
+  --ec-lh-snug: 1.3;
+  --ec-lh-body: 1.55;
+
+  /* ==========================================================================
+     1g. BORDER RADIUS — Soft curves to pill shapes
+     ========================================================================== */
+  --ec-r-sm: 0.5rem;
+  --ec-r-md: 0.75rem;
+  --ec-r-lg: 1rem;
+  --ec-r-xl: 1.5rem;
+  --ec-r-2xl: 1.75rem;
+  --ec-r-pill: 9999px;
+  /* Neo-pop asymmetric radius presets (organic + geometric tension) */
+  --ec-r-brutalist: 40px 15px 45px 20px;
+  --ec-r-brutalist-alt: 15px 40px 20px 45px;
+  --ec-r-organic: 60px 20px 70px 30px / 30px 60px 30px 70px;
+
+  /* ==========================================================================
+     1h. SHADOWS / ELEVATION — Soft to dramatic
+     ========================================================================== */
+  --ec-elev-1: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --ec-elev-2: 0 8px 20px rgba(127, 208, 105, 0.25);
+  --ec-elev-3: 0 10px 28px rgba(0, 0, 0, 0.08);
+  --ec-elev-4: 0 20px 40px rgba(0, 0, 0, 0.3);
+  --ec-inset-1: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+
+  /* NEO-POP HARD OFFSET SHADOWS — The signature aesthetic.
+     Zero blur, pure offset. Use with thick borders for the full effect. */
+  --neo-shadow-sm: 4px 4px 0px 0px var(--ec-forest-900);
+  --neo-shadow-md: 8px 8px 0px 0px var(--ec-forest-900);
+  --neo-shadow-lg: 12px 12px 0px 0px var(--ec-forest-900);
+  --neo-shadow-xl: 16px 16px 0px 0px var(--ec-forest-900);
+  /* Colored offset variants */
+  --neo-shadow-mint: 8px 8px 0px 0px var(--ec-mint-700);
+  --neo-shadow-gold: 8px 8px 0px 0px var(--ec-gold-700);
+  --neo-shadow-danger: 4px 4px 0px 0px var(--ec-danger-darkest);
+
+  /* Thick border widths for brutalist elements */
+  --neo-border-thin: 2px;
+  --neo-border-mid: 3px;
+  --neo-border-thick: 4px;
+
+  /* ==========================================================================
+     1i. GLASS / BACKDROP — Frosted layers
+     ========================================================================== */
+  --blur-sm: 4px;
+  --blur-md: 8px;
+  --blur-lg: 12px;
+  --blur-xl: 20px;
+  --backdrop-saturate: 110%;
+
+  /* ==========================================================================
+     1j. TIMING / EASING — Tactile interaction physics
+     ========================================================================== */
+  --ec-d-instant: 40ms;
+  --ec-d-fast: 160ms;
+  --ec-d-med: 200ms;
+  --ec-d-slow: 400ms;
+  --ec-d-glacial: 600ms;
+  --ec-ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --ec-ease-spring: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  --ec-ease-snap: cubic-bezier(0.25, 1, 0.5, 1);
+  --ec-ease-smooth: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Button physics aliases (kept for backwards compat) */
+  --btn-spring: var(--ec-ease-spring);
+  --btn-snap: var(--ec-ease-snap);
+
+  /* ==========================================================================
+     1k. Z-INDEX SCALE
+     ========================================================================== */
+  --ec-z-base: 1;
+  --ec-z-raised: 10;
+  --ec-z-nav: 50;
+  --ec-z-sticky: 60;
+  --ec-z-overlay: 100;
+  --ec-z-sheet: 500;
+  --ec-z-modal: 1000;
+  --ec-z-toast: 1100;
+  --ec-z-boot: 9999;
+
+  /* ==========================================================================
+     1l. MOBILE-NATIVE LAYOUT TOKENS
+     ========================================================================== */
+  --header-height: 56px;
+  --tab-bar-height: 56px;
+  --bottom-sheet-radius: 1.5rem;
+  --touch-target-min: 44px;
+  --touch-target-comfortable: 48px;
+  /* Content inset: accounts for tab bar + safe area on mobile */
+  --content-bottom-inset: calc(var(--tab-bar-height) + var(--safe-bot));
+  /* Keyboard-aware spacing (set dynamically via JS when keyboard opens) */
+  --keyboard-height: 0px;
+
+  /* ==========================================================================
+     1m. GRADIENTS & TEXTURES
+     ========================================================================== */
+  --grad-hero-bg: radial-gradient(
+    ellipse at center,
+    rgba(217, 249, 237, 0.5) 0%,
+    rgba(255, 255, 255, 1) 70%
+  );
+  --grad-primary-btn: linear-gradient(
+    to right,
+    var(--ec-mint-500),
+    var(--ec-mint-600)
+  );
+  --grad-primary-text: linear-gradient(
+    to right,
+    var(--ec-mint-500),
+    var(--ec-forest-700)
+  );
+  --grad-alive: linear-gradient(
+    135deg,
+    var(--ec-mint-400) 0%,
+    var(--ec-gold-400) 100%
+  );
+  --grad-canopy:
+    radial-gradient(
+      1200px 600px at 15% 10%,
+      rgba(127, 208, 105, 0.25),
+      transparent 55%
+    ),
+    radial-gradient(
+      900px 480px at 85% 15%,
+      rgba(244, 211, 94, 0.18),
+      transparent 60%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #f9fff6 35%, #f3fff7 100%);
+  --grad-rooftop:
+    radial-gradient(
+      1200px 500px at 10% 0%,
+      rgba(244, 211, 94, 0.2),
+      transparent 60%
+    ),
+    radial-gradient(
+      900px 520px at 90% 10%,
+      rgba(127, 208, 105, 0.22),
+      transparent 62%
+    ),
+    linear-gradient(180deg, #ffffff 0%, #fbfff8 42%, #f7fff6 100%);
+
+  /* Textures */
+  --tx-paper: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140' viewBox='0 0 140 140'%3E%3Cfilter id='p'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='1' type='fractalNoise'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='table' tableValues='0 0.02'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23p)'/%3E%3C/svg%3E");
+  --tx-dotgrid: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='28' height='28' viewBox='0 0 28 28'%3E%3Ccircle cx='1.5' cy='1.5' r='0.8' fill='%2360a477' fill-opacity='0.22'/%3E%3C/svg%3E");
+  --mask-vine-arch: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 800 400' preserveAspectRatio='none'%3E%3Cpath d='M0,0 L800,0 L800,260 C600,230 580,140 480,110 C380,80 320,150 210,180 C120,205 60,195 0,175 Z' fill='black'/%3E%3C/svg%3E");
+
+  /* ==========================================================================
+     1n. CHIP TOKENS
+     ========================================================================== */
+  --chip-radius: 999px;
+  --chip-font-size: 0.7rem;
+  --chip-font-weight: 600;
+  --chip-padding-y: 0.25rem;
+  --chip-padding-x: 0.75rem;
+  --chip-primary-bg: #7fd069;
+  --chip-primary-text: #0b2e13;
+  --chip-primary-border: #6ec45c;
+  --chip-secondary-bg: #f4d35e;
+  --chip-secondary-text: #3a2a00;
+  --chip-secondary-border: #eec84b;
+
+  /* ---------- 1g. Phase 3 Feature Tokens ---------- */
+
+  /* Sidequest difficulty */
+  --quest-easy: #7fd069;
+  --quest-easy-fg: #0b2e13;
+  --quest-medium: #f4d35e;
+  --quest-medium-fg: #3a2a00;
+  --quest-hard: #e67e22;
+  --quest-hard-fg: #fff;
+
+  /* Sidequest kinds */
+  --quest-core: var(--ec-mint-500);
+  --quest-core-fg: var(--ec-forest-950);
+  --quest-eco-action: var(--ec-forest-600);
+  --quest-eco-action-fg: #fff;
+  --quest-daily: var(--ec-gold-500);
+  --quest-daily-fg: #3a2a00;
+  --quest-weekly: var(--ec-mint-700);
+  --quest-weekly-fg: #fff;
+
+  /* Submission states */
+  --submission-pending: var(--ec-gold-500);
+  --submission-pending-fg: #3a2a00;
+  --submission-approved: var(--ec-mint-600);
+  --submission-approved-fg: #fff;
+  --submission-rejected: #e74c3c;
+  --submission-rejected-fg: #fff;
+
+  /* Reactions */
+  --reaction-eco: var(--ec-mint-500);
+  --reaction-wow: #9b59b6;
+  --reaction-cheer: #f4d35e;
+  --reaction-fire: #e67e22;
+  --reaction-leaf: var(--ec-forest-600);
+
+  /* Friendship tiers */
+  --tier-seedling: var(--ec-mint-300);
+  --tier-sapling: var(--ec-mint-500);
+  --tier-canopy: var(--ec-forest-600);
+  --tier-elder: var(--ec-gold-500);
+
+  /* Wallet */
+  --tx-earned: var(--ec-mint-600);
+  --tx-earned-fg: #fff;
+  --tx-spent: #e74c3c;
+  --tx-spent-fg: #fff;
+
+  /* Leaderboard */
+  --rank-gold: #f4d35e;
+  --rank-silver: #c0c0c0;
+  --rank-bronze: #cd7f32;
+
+  /* Eco-Local — Business & Offers */
+  --pledge-starter: var(--ec-mint-400);
+  --pledge-starter-fg: #1a3a1d;
+  --pledge-starter-bg: var(--ec-mint-50);
+  --pledge-builder: var(--ec-mint-600);
+  --pledge-builder-fg: #fff;
+  --pledge-builder-bg: var(--ec-mint-100);
+  --pledge-leader: var(--ec-forest-700);
+  --pledge-leader-fg: #fff;
+  --pledge-leader-bg: var(--ec-forest-50);
+
+  --offer-discount: var(--ec-gold-500);
+  --offer-discount-fg: #3a2a00;
+  --offer-free-item: var(--ec-mint-500);
+  --offer-free-item-fg: #1a3a1d;
+  --offer-bonus: #9b59b6;
+  --offer-bonus-fg: #fff;
+  --offer-experience: #e67e22;
+  --offer-experience-fg: #fff;
+  --offer-gift: #e74c3c;
+  --offer-gift-fg: #fff;
+  --offer-custom: var(--ec-forest-600);
+  --offer-custom-fg: #fff;
+
+  --offer-active: var(--ec-mint-600);
+  --offer-active-fg: #fff;
+  --offer-paused: var(--ec-gold-500);
+  --offer-paused-fg: #3a2a00;
+  --offer-hidden: var(--ec-gray-400);
+  --offer-hidden-fg: #fff;
+
+  --voucher-issued: var(--ec-gold-500);
+  --voucher-issued-fg: #3a2a00;
+  --voucher-verified: var(--ec-mint-500);
+  --voucher-verified-fg: #1a3a1d;
+  --voucher-consumed: var(--ec-forest-700);
+  --voucher-consumed-fg: #fff;
+  --voucher-expired: var(--ec-gray-400);
+  --voucher-expired-fg: #fff;
+  --voucher-void: #e74c3c;
+  --voucher-void-fg: #fff;
+
+  --biz-type-in-store: var(--ec-forest-600);
+  --biz-type-online: var(--ec-mint-600);
+  --biz-type-hybrid: var(--ec-gold-500);
+
+  /* Studio — Marketplace */
+  --order-pending: var(--ec-gold-500);
+  --order-pending-fg: #3a2a00;
+  --order-pending-bg: var(--ec-gold-50);
+  --order-paid: var(--ec-mint-500);
+  --order-paid-fg: #1a3a1d;
+  --order-paid-bg: var(--ec-mint-50);
+  --order-preparing: #3b82f6;
+  --order-preparing-fg: #fff;
+  --order-preparing-bg: #eff6ff;
+  --order-shipped: #a855f7;
+  --order-shipped-fg: #fff;
+  --order-shipped-bg: #faf5ff;
+  --order-delivered: var(--ec-forest-700);
+  --order-delivered-fg: #fff;
+  --order-delivered-bg: var(--ec-forest-50);
+  --order-cancelled: var(--ec-gray-400);
+  --order-cancelled-fg: #fff;
+  --order-cancelled-bg: var(--ec-gray-100);
+
+  --condition-new: var(--ec-mint-600);
+  --condition-like-new: var(--ec-mint-500);
+  --condition-good: var(--ec-gold-500);
+  --condition-fair: var(--ec-gray-500);
+
+  --item-draft: var(--ec-gray-400);
+  --item-draft-fg: #fff;
+  --item-active: var(--ec-mint-600);
+  --item-active-fg: #fff;
+  --item-sold: var(--ec-forest-700);
+  --item-sold-fg: #fff;
+  --item-archived: var(--ec-gray-500);
+  --item-archived-fg: #fff;
+
+  /* Empty state icon */
+  --empty-state-icon: var(--ec-gray-400);
+
+  /* Surface-2 (for inactive states) */
+  --surface-2: var(--ec-gray-100);
+}
+
+/* ==========================================================================
+   DARK MODE — System preference
+   ========================================================================== */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Surfaces */
+    --surface-base: var(--ec-gray-900);
+    --surface-subtle: #0c0f0c;
+    --surface-elevated: rgba(30, 36, 31, 0.85);
+    --surface-glass: rgba(255, 255, 255, 0.1);
+    --surface-glass-2: rgba(255, 255, 255, 0.05);
+    --surface-scrim: rgba(0, 0, 0, 0.65);
+
+    /* Text */
+    --text-strong: var(--ec-pearl);
+    --text-base: var(--ec-foam);
+    --text-muted: var(--ec-gray-400);
+    --text-subtle: var(--ec-gray-500);
+    --text-link: var(--ec-mint-300);
+    --text-inverted: var(--ec-ink);
+
+    /* Borders */
+    --border: rgba(255, 255, 255, 0.1);
+    --border-subtle: rgba(255, 255, 255, 0.08);
+    --border-strong: rgba(255, 255, 255, 0.2);
+
+    /* Elevation — darker, less blur-visible */
+    --ec-elev-1: 0 4px 12px rgba(0, 0, 0, 0.15);
+    --ec-elev-2: 0 8px 20px rgba(127, 208, 105, 0.15);
+    --ec-elev-3: 0 10px 28px rgba(0, 0, 0, 0.2);
+    --ec-elev-4: 0 20px 40px rgba(0, 0, 0, 0.25);
+    --ec-inset-1: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+
+    /* Neo-pop offset shadows — lighter anchor in dark mode */
+    --neo-shadow-sm: 4px 4px 0px 0px rgba(255, 255, 255, 0.08);
+    --neo-shadow-md: 8px 8px 0px 0px rgba(255, 255, 255, 0.06);
+    --neo-shadow-lg: 12px 12px 0px 0px rgba(255, 255, 255, 0.05);
+    --neo-shadow-xl: 16px 16px 0px 0px rgba(255, 255, 255, 0.04);
+    --neo-shadow-mint: 8px 8px 0px 0px var(--ec-mint-800);
+    --neo-shadow-gold: 8px 8px 0px 0px var(--ec-gold-800);
+    --neo-shadow-danger: 4px 4px 0px 0px #991b1b;
+
+    /* On-brand text */
+    --on-brand-forest: var(--ec-foam);
+    --on-brand-sun: var(--ec-ink);
+    --on-brand-mint: var(--ec-ink);
+
+    /* Status — brighter in dark mode for legibility */
+    --ec-danger-subtle: rgba(239, 68, 68, 0.15);
+    --ec-danger-border: rgba(239, 68, 68, 0.3);
+    --ec-success-subtle: rgba(16, 185, 129, 0.15);
+    --ec-success-border: rgba(16, 185, 129, 0.3);
+    --ec-warning-subtle: rgba(244, 211, 94, 0.15);
+    --ec-warning-border: rgba(244, 211, 94, 0.3);
+    --ec-info-subtle: rgba(59, 130, 246, 0.15);
+    --ec-info-border: rgba(59, 130, 246, 0.3);
+
+    /* Phase 3 dark overrides */
+    --surface-2: var(--ec-gray-800);
+    --empty-state-icon: var(--ec-gray-600);
+  }
+}
+
+/* Forced light mode — manual toggle override */
+html[data-theme="light"] {
+  --surface-base: var(--ec-pearl);
+  --surface-subtle: var(--ec-gray-50);
+  --surface-elevated: rgba(255, 255, 255, 0.85);
+  --surface-glass: rgba(255, 255, 255, 0.75);
+  --surface-glass-2: rgba(255, 255, 255, 0.5);
+  --surface-scrim: rgba(0, 0, 0, 0.4);
+  --text-strong: var(--ec-forest-950);
+  --text-base: var(--ec-forest-800);
+  --text-muted: var(--ec-gray-600);
+  --text-subtle: var(--ec-gray-500);
+  --text-link: var(--ec-mint-700);
+  --text-inverted: var(--ec-white);
+  --border: rgba(0, 0, 0, 0.08);
+  --border-subtle: rgba(0, 0, 0, 0.05);
+  --border-strong: rgba(0, 0, 0, 0.16);
+  --ec-elev-1: 0 4px 12px rgba(0, 0, 0, 0.05);
+  --ec-elev-2: 0 8px 20px rgba(127, 208, 105, 0.25);
+  --ec-elev-3: 0 10px 28px rgba(0, 0, 0, 0.08);
+  --ec-elev-4: 0 20px 40px rgba(0, 0, 0, 0.1);
+  --ec-inset-1: inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  --neo-shadow-sm: 4px 4px 0px 0px var(--ec-forest-900);
+  --neo-shadow-md: 8px 8px 0px 0px var(--ec-forest-900);
+  --neo-shadow-lg: 12px 12px 0px 0px var(--ec-forest-900);
+  --neo-shadow-xl: 16px 16px 0px 0px var(--ec-forest-900);
+  --on-brand-forest: var(--ec-white);
+  --on-brand-sun: var(--ec-forest-900);
+  --on-brand-mint: var(--ec-forest-950);
+}
+
+/* Forced dark mode — manual toggle override */
+html[data-theme="dark"] {
+  --surface-base: var(--ec-gray-900);
+  --surface-subtle: #0c0f0c;
+  --surface-elevated: rgba(30, 36, 31, 0.85);
+  --surface-glass: rgba(255, 255, 255, 0.1);
+  --surface-glass-2: rgba(255, 255, 255, 0.05);
+  --surface-scrim: rgba(0, 0, 0, 0.65);
+  --text-strong: var(--ec-pearl);
+  --text-base: var(--ec-foam);
+  --text-muted: var(--ec-gray-400);
+  --text-subtle: var(--ec-gray-500);
+  --text-link: var(--ec-mint-300);
+  --text-inverted: var(--ec-ink);
+  --border: rgba(255, 255, 255, 0.1);
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.2);
+  --ec-elev-1: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --ec-elev-2: 0 8px 20px rgba(127, 208, 105, 0.15);
+  --ec-elev-3: 0 10px 28px rgba(0, 0, 0, 0.2);
+  --ec-elev-4: 0 20px 40px rgba(0, 0, 0, 0.25);
+  --ec-inset-1: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  --neo-shadow-sm: 4px 4px 0px 0px var(--ec-mint-700);
+  --neo-shadow-md: 8px 8px 0px 0px var(--ec-mint-700);
+  --neo-shadow-lg: 12px 12px 0px 0px var(--ec-mint-700);
+  --neo-shadow-xl: 16px 16px 0px 0px var(--ec-mint-700);
+  --neo-shadow-mint: 8px 8px 0px 0px var(--ec-mint-600);
+  --neo-shadow-gold: 8px 8px 0px 0px var(--ec-gold-700);
+  --neo-shadow-danger: 4px 4px 0px 0px #991b1b;
+  --on-brand-forest: var(--ec-foam);
+  --on-brand-sun: var(--ec-ink);
+  --on-brand-mint: var(--ec-ink);
+  --ec-danger-subtle: rgba(239, 68, 68, 0.15);
+  --ec-danger-border: rgba(239, 68, 68, 0.3);
+  --ec-success-subtle: rgba(16, 185, 129, 0.15);
+  --ec-success-border: rgba(16, 185, 129, 0.3);
+  --ec-warning-subtle: rgba(244, 211, 94, 0.15);
+  --ec-warning-border: rgba(244, 211, 94, 0.3);
+  --ec-info-subtle: rgba(59, 130, 246, 0.15);
+  --ec-info-border: rgba(59, 130, 246, 0.3);
+
+  /* Phase 3 dark overrides */
+  --surface-2: var(--ec-gray-800);
+  --empty-state-icon: var(--ec-gray-600);
+}
+
+/* ============================================================================
+   2. BASE STYLES
+   ============================================================================ */
+@layer base {
+  /* ========================================================================
+     RESETS & BEHAVIOR — App-like native feel
+     ======================================================================== */
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scrollbar-gutter: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+    scroll-behavior: smooth;
+    -webkit-text-size-adjust: 100%;
+    touch-action: manipulation;
+    /* Prevent pull-to-refresh on Android Chrome */
+    overscroll-behavior-y: contain;
+  }
+
+  /* iOS Safari visual viewport fill */
+  @supports (-webkit-touch-callout: none) {
+    html,
+    body {
+      height: -webkit-fill-available;
+    }
+  }
+
+  * {
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  /* Disable text selection on interactive elements (touch devices) */
+  @media (pointer: coarse) {
+    button,
+    a,
+    label,
+    nav,
+    [role="button"],
+    [role="tab"],
+    [role="menuitem"] {
+      -webkit-user-select: none;
+      user-select: none;
+    }
+  }
+
+  /* Re-enable text selection for content */
+  p,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6,
+  blockquote,
+  code,
+  pre,
+  li,
+  td,
+  th,
+  dd,
+  dt {
+    -webkit-user-select: text;
+    user-select: text;
+    cursor: auto;
+  }
+
+  input,
+  textarea,
+  select {
+    -webkit-user-select: text;
+    user-select: text;
+    font-size: 16px !important; /* Prevent iOS zoom on focus */
+  }
+
+  img,
+  video,
+  svg {
+    max-width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* ========================================================================
+     TYPOGRAPHY — Fjalla One (bold display) + Inter (clean body)
+     Uppercase headings, tight tracking, commanding presence.
+     ======================================================================== */
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--ec-font-head);
+    font-weight: 800;
+    letter-spacing: 0.02em;
+    line-height: var(--ec-lh-tight);
+    color: var(--text-strong);
+    text-wrap: balance;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1 {
+    font-size: var(--text-3xl);
+  }
+  h2 {
+    font-size: var(--text-2xl);
+  }
+  h3 {
+    font-size: var(--text-xl);
+  }
+  h4 {
+    font-size: var(--text-lg);
+  }
+  h5 {
+    font-size: var(--text-md);
+  }
+  h6 {
+    font-size: var(--text-sm);
+  }
+
+  p {
+    max-width: 75ch;
+    text-wrap: pretty;
+    color: var(--text-base);
+    line-height: var(--ec-lh-body);
+  }
+
+  /* Body defaults */
+  body {
+    font-family: var(--ec-font-body);
+    color: var(--text-base);
+    background: var(--surface-base);
+    background-image: var(--tx-dotgrid);
+    background-size: 28px 28px;
+    line-height: var(--ec-lh-body);
+    /* Prevent body scroll when modals/sheets open */
+    overflow-x: hidden;
+  }
+
+  a {
+    color: var(--text-link);
+    text-underline-offset: 3px;
+    transition: all var(--ec-d-med) ease;
+    font-weight: 500;
+  }
+  @media (hover: hover) {
+    a:hover {
+      text-decoration: none;
+      filter: brightness(1.1);
+    }
+  }
+  a:active {
+    filter: brightness(0.95);
+  }
+
+  ::selection {
+    background: var(--ec-mint-500);
+    color: var(--on-brand-mint);
+  }
+
+  /* Code / monospace */
+  code,
+  kbd,
+  samp,
+  pre {
+    font-family: var(--ec-font-mono);
+  }
+
+  header {
+    position: relative;
+    z-index: var(--ec-z-nav);
+  }
+  main {
+    position: relative;
+    z-index: var(--ec-z-base);
+  }
+
+  /* Leaflet / Map fix */
+  .leaflet-container {
+    z-index: 0 !important;
+    touch-action: none !important;
+  }
+
+  /* ========================================================================
+     SCROLLBAR HIDING — App-like, no visible chrome
+     ======================================================================== */
+  html,
+  body,
+  * {
+    scrollbar-width: none !important;
+  }
+  html,
+  body {
+    -ms-overflow-style: none;
+  }
+  *::-webkit-scrollbar {
+    width: 0 !important;
+    height: 0 !important;
+    display: none;
+  }
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* ============================================================================
+   3. COMPONENTS
+   ============================================================================ */
+@layer components {
+  /* --- Page Container --- */
+  .container-page {
+    @apply w-full max-w-6xl mx-auto;
+    padding-left: calc(var(--safe-left) + var(--space-3));
+    padding-right: calc(var(--safe-right) + var(--space-3));
+  }
+
+  .container-page--roomy {
+    --top-pad-min: var(--space-6);
+    --top-pad-max: var(--space-14);
+    padding-top: calc(
+      var(--safe-top) + var(--header-height, 0px) +
+        clamp(var(--top-pad-min), 6vh, var(--top-pad-max))
+    );
+    padding-bottom: calc(var(--safe-bot) + var(--space-6));
+  }
+
+  /* --- Base Button --- */
+  .btn {
+    @apply relative inline-flex items-center justify-center whitespace-nowrap select-none;
+    border-radius: 9999px;
+    padding: 0.75rem 1.25rem;
+    font-weight: 700;
+    font-size: 0.875rem;
+    line-height: 1;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    text-decoration: none;
+    border: none;
+    outline: none;
+    overflow: hidden;
+    isolation: isolate;
+    transition:
+      transform 120ms var(--btn-snap),
+      box-shadow 120ms ease-out,
+      background-color 150ms ease-out;
+  }
+
+  .btn::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: black;
+    opacity: 0;
+    transition: opacity 100ms ease-out;
+    pointer-events: none;
+    z-index: -1;
+    border-radius: inherit;
+  }
+
+  @media (hover: hover) {
+    .btn:hover {
+      transform: translateY(-2px);
+    }
+    .btn:hover::after {
+      opacity: 0.03;
+    }
+  }
+
+  .btn:active {
+    transform: scale(0.96) translateY(0);
+    transition-duration: 40ms;
+  }
+  .btn:active::after {
+    opacity: 0.12;
+    transition-duration: 0ms;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(1);
+  }
+
+  /* --- Primary (Forest → Mint Gradient) --- */
+  .btn-primary {
+    color: #f6fff9;
+    background: linear-gradient(135deg, #2d4a33 0%, #396041 35%, #7fd069 100%);
+    border: 1px solid rgba(246, 255, 249, 0.14);
+    box-shadow:
+      0 14px 28px rgba(15, 23, 18, 0.22),
+      0 6px 12px rgba(57, 96, 65, 0.22),
+      inset 0 1px 0 rgba(246, 255, 249, 0.16);
+    text-shadow: 0 1px 0 rgba(15, 23, 18, 0.35);
+    position: relative;
+    overflow: visible;
+  }
+
+  @media (hover: hover) {
+    .btn-primary:hover {
+      color: #f6fff9;
+      background: linear-gradient(
+        135deg,
+        #2d4a33 0%,
+        #396041 25%,
+        #7fd069 100%
+      );
+      border-color: rgba(127, 208, 105, 0.45);
+      box-shadow:
+        0 18px 36px rgba(15, 23, 18, 0.26),
+        0 8px 16px rgba(57, 96, 65, 0.24),
+        inset 0 1px 0 rgba(246, 255, 249, 0.18);
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-primary:active {
+    transform: scale(0.96) translateY(0px);
+    background: linear-gradient(135deg, #24402b 0%, #396041 45%, #6bc85a 100%);
+    box-shadow:
+      0 10px 20px rgba(15, 23, 18, 0.22),
+      0 4px 10px rgba(57, 96, 65, 0.2),
+      inset 0 2px 10px rgba(15, 23, 18, 0.22);
+    transition-duration: 40ms;
+  }
+
+  /* --- Secondary (Gold Gradient) --- */
+  .btn-secondary {
+    color: #1c1408;
+    background: linear-gradient(300deg, #ab872d 0%, #f4d35e 70%, #ffe59a 100%);
+    border: 1px solid rgba(244, 211, 94, 0.7);
+    box-shadow:
+      0 14px 28px rgba(15, 23, 18, 0.16),
+      0 6px 12px rgba(244, 211, 94, 0.22),
+      inset 0 1px 0 rgba(255, 255, 255, 0.35);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.22);
+  }
+
+  @media (hover: hover) {
+    .btn-secondary:hover {
+      color: #0f1712;
+      background: linear-gradient(
+        300deg,
+        #8a6a1e 0%,
+        #f4d35e 55%,
+        #fff0b8 100%
+      );
+      border-color: rgba(244, 211, 94, 0.95);
+      box-shadow:
+        0 18px 36px rgba(15, 23, 18, 0.18),
+        0 8px 16px rgba(244, 211, 94, 0.26),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-secondary:active {
+    transform: scale(0.96) translateY(0px);
+    color: #0f1712;
+    background: linear-gradient(180deg, #f4d35e 0%, #ebc84b 100%);
+    box-shadow:
+      0 10px 20px rgba(15, 23, 18, 0.16),
+      0 4px 10px rgba(244, 211, 94, 0.22),
+      inset 0 2px 10px rgba(15, 23, 18, 0.14);
+    transition-duration: 40ms;
+  }
+
+  /* --- Tertiary (White/Cream) --- */
+  .btn-tertiary {
+    color: #0f1712;
+    background: linear-gradient(180deg, #ffffff 0%, #f6fff9 100%);
+    border: 1px solid rgba(231, 236, 233, 1);
+    box-shadow:
+      0 10px 22px rgba(15, 23, 18, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.45);
+  }
+
+  @media (hover: hover) {
+    .btn-tertiary:hover {
+      color: #0f1712;
+      background: linear-gradient(180deg, #ffffff 0%, #f3fff7 100%);
+      border-color: rgba(127, 208, 105, 0.55);
+      box-shadow:
+        0 14px 28px rgba(15, 23, 18, 0.12),
+        0 0 0 3px rgba(127, 208, 105, 0.18),
+        inset 0 1px 0 rgba(255, 255, 255, 0.75);
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-tertiary:active {
+    transform: scale(0.96) translateY(0px);
+    background: linear-gradient(180deg, #f6fff9 0%, #eaf7ef 100%);
+    box-shadow:
+      0 10px 20px rgba(15, 23, 18, 0.1),
+      inset 0 2px 10px rgba(15, 23, 18, 0.1);
+    transition-duration: 40ms;
+  }
+
+  /* --- Danger --- */
+  .btn-danger {
+    color: #b91c1c;
+    background: linear-gradient(180deg, #fef2f2 0%, #fee2e2 100%);
+    border: 1px solid #fecaca;
+    box-shadow:
+      0 12px 24px rgba(15, 23, 18, 0.12),
+      inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  }
+
+  @media (hover: hover) {
+    .btn-danger:hover {
+      color: #7f1d1d;
+      border-color: #fca5a5;
+      background: linear-gradient(180deg, #fee2e2 0%, #fecaca 100%);
+      transform: translateY(-2px);
+    }
+  }
+
+  .btn-danger:active {
+    transform: scale(0.96) translateY(0px);
+    background: linear-gradient(180deg, #ef4444 0%, #dc2626 100%);
+    color: #ffffff;
+    border-color: rgba(239, 68, 68, 0.9);
+    box-shadow:
+      0 10px 20px rgba(15, 23, 18, 0.14),
+      inset 0 2px 10px rgba(15, 23, 18, 0.22);
+    transition-duration: 40ms;
+  }
+
+  /* --- Alive (Gradient) --- */
+  .btn-alive {
+    /* Use with .btn base class: class="btn btn-primary" */
+    color: #0c1310;
+    background: linear-gradient(135deg, #7fd069 0%, #f4d35e 100%);
+    box-shadow: 0 8px 20px -4px rgba(127, 208, 105, 0.4);
+    font-weight: 800;
+    letter-spacing: 0.04em;
+  }
+
+  /* --- Butter (Nav pill) --- */
+  .btn-butter {
+    --butter-h: 40px;
+    --butter-px: 12px;
+    --butter-gap: 8px;
+    --butter-r: 999px;
+    --butter-bg: var(--surface-subtle);
+    --butter-bg-hover: var(--ec-gray-100);
+    --butter-bg-active: linear-gradient(
+      90deg,
+      var(--ec-mint-50),
+      var(--ec-gold-50)
+    );
+    --butter-border: var(--border);
+    --butter-border-active: var(--ec-mint-300);
+    --butter-fg: var(--text-base);
+    --butter-fg-strong: var(--text-strong);
+    --butter-shadow: var(--ec-elev-1);
+    --butter-shadow-active: var(--ec-elev-2);
+    --butter-ease: cubic-bezier(0.22, 1, 0.36, 1);
+    --butter-dur: 360ms;
+
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--butter-gap);
+    height: var(--butter-h);
+    padding-inline: var(--butter-px);
+    border-radius: var(--butter-r);
+    border: 1px solid var(--butter-border);
+    background: var(--butter-bg);
+    color: var(--butter-fg);
+    text-decoration: none;
+    font-weight: 600;
+    line-height: 1;
+    white-space: nowrap;
+    transition: all var(--butter-dur) var(--butter-ease);
+    will-change: transform, box-shadow, background-color;
+    transform: translateZ(0);
+  }
+  .btn-butter:hover {
+    background: var(--butter-bg-hover);
+    color: var(--butter-fg-strong);
+    transform: translateY(-1px) scale(1.01);
+    box-shadow: var(--butter-shadow);
+  }
+  .btn-butter:active {
+    transform: translateY(0) scale(0.985);
+  }
+  .btn-butter:where(.is-active, [aria-current="page"], [data-active="true"]) {
+    background: var(--butter-bg-active);
+    border-color: var(--butter-border-active);
+    color: var(--ec-forest-900);
+    box-shadow: var(--butter-shadow-active);
+  }
+
+  /* --- Input --- */
+  .input {
+    @apply w-full;
+    padding: 0.75rem 1rem;
+    border-radius: var(--ec-r-md);
+    border: 1px solid var(--border);
+    background: var(--surface-elevated);
+    backdrop-filter: blur(4px);
+    color: var(--text-base);
+    font-size: 16px !important;
+    transition: all 150ms ease;
+  }
+  .input::placeholder {
+    color: var(--text-subtle);
+  }
+  .input:focus,
+  .input:focus-visible {
+    outline: none;
+    border-color: var(--ec-mint-500);
+    background: var(--ec-white);
+    box-shadow: 0 0 0 3px var(--ring);
+  }
+
+  /* --- Card (Neo-Pop Default) --- */
+  .card {
+    background: var(--surface-base);
+    color: var(--text-base);
+    border: 2px solid var(--ec-forest-800);
+    border-radius: var(--ec-r-lg);
+    box-shadow: var(--neo-shadow-sm);
+    overflow: hidden;
+    transition:
+      transform var(--ec-d-fast) var(--ec-ease-out),
+      box-shadow var(--ec-d-fast) var(--ec-ease-out);
+  }
+  @media (hover: hover) {
+    .card:hover {
+      transform: translate(-1px, -1px);
+      box-shadow: var(--neo-shadow-md);
+    }
+  }
+
+  /* --- Card Brutalist (neo-pop signature) ---
+     Thick border + hard offset shadow + asymmetric radius.
+     The defining visual pattern of the ecodia aesthetic. */
+  .card-brutalist {
+    background: var(--surface-base);
+    border: var(--neo-border-mid) solid var(--ec-forest-800);
+    border-radius: var(--ec-r-brutalist);
+    box-shadow: var(--neo-shadow-lg);
+    overflow: hidden;
+    transition: all var(--ec-d-slow) var(--ec-ease-out);
+  }
+  @media (hover: hover) {
+    .card-brutalist:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--neo-shadow-xl);
+    }
+  }
+  .card-brutalist:active {
+    transform: translate(4px, 4px);
+    box-shadow: var(--neo-shadow-sm);
+    transition-duration: var(--ec-d-instant);
+  }
+
+  /* Brutalist card — mint accent variant */
+  .card-brutalist-mint {
+    border-color: var(--ec-mint-600);
+    box-shadow: var(--neo-shadow-mint);
+  }
+
+  /* Brutalist card — gold accent variant */
+  .card-brutalist-gold {
+    border-color: var(--ec-gold-600);
+    box-shadow: var(--neo-shadow-gold);
+  }
+
+  /* Brutalist card — danger variant */
+  .card-brutalist-danger {
+    border-color: var(--ec-danger-dark);
+    box-shadow: var(--neo-shadow-danger);
+  }
+
+  /* --- Table --- */
+  .table {
+    @apply w-full;
+    border-collapse: collapse;
+  }
+  .table th,
+  .table td {
+    padding: var(--space-2);
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .table th {
+    font-family: var(--ec-font-head);
+    color: var(--text-muted);
+    font-size: var(--text-sm);
+  }
+
+  @media (max-width: 720px) {
+    .table,
+    .table thead,
+    .table tbody,
+    .table th,
+    .table td,
+    .table tr {
+      display: block;
+    }
+    .table thead {
+      @apply hidden;
+    }
+    .table tr {
+      border: 1px solid var(--border);
+      border-radius: var(--ec-r-md);
+      padding: var(--space-2);
+      margin-bottom: var(--space-2);
+    }
+    .table td {
+      @apply flex justify-between items-center;
+      gap: var(--space-3);
+      padding: var(--space-1) 0;
+      border-bottom: 1px dashed var(--border-subtle);
+    }
+    .table tr:last-child td:last-child,
+    .table td:last-child {
+      border-bottom: 0;
+    }
+    .table td::before {
+      content: attr(data-label);
+      font-weight: 600;
+      opacity: 0.7;
+      font-size: var(--text-sm);
+    }
+  }
+
+  /* --- Focus Ring --- */
+  .focus-ring {
+    @apply focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    --tw-ring-color: var(--ring);
+    --tw-ring-offset-color: var(--surface-base);
+  }
+
+  /* --- Chips --- */
+  .chip {
+    @apply inline-flex items-center justify-center select-none;
+    @apply border rounded-full shadow-sm transition;
+    font-size: var(--chip-font-size);
+    font-weight: var(--chip-font-weight);
+    padding: var(--chip-padding-y) var(--chip-padding-x);
+  }
+  .chip-primary {
+    background-color: var(--chip-primary-bg);
+    color: var(--chip-primary-text);
+    border-color: var(--chip-primary-border);
+  }
+  .chip-primary:hover {
+    filter: brightness(1.07);
+  }
+  .chip-secondary {
+    background-color: var(--chip-secondary-bg);
+    color: var(--chip-secondary-text);
+    border-color: var(--chip-secondary-border);
+  }
+  .chip-secondary:hover {
+    filter: brightness(1.05);
+  }
+  .chip-action {
+    @apply cursor-pointer;
+  }
+  .chip-action:active {
+    transform: scale(0.95);
+  }
+  .chip-action:disabled {
+    @apply opacity-50 cursor-not-allowed;
+  }
+
+  /* --- Badge Pill (Ecodia variant) --- */
+  .badge-pill {
+    @apply inline-flex items-center justify-center select-none;
+    padding: 0.375rem 0.875rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid;
+    transition: all var(--ec-d-fast) ease;
+  }
+
+  /* --- Eco Brutalist Elements from ecodia-site --- */
+  .eco-brutalist-card {
+    background: var(--surface-base);
+    border: var(--neo-border-mid) solid var(--ec-forest-800);
+    border-radius: var(--ec-r-brutalist);
+    box-shadow: var(--neo-shadow-lg);
+    transition: all var(--ec-d-slow) var(--ec-ease-out);
+  }
+  @media (hover: hover) {
+    .eco-brutalist-card:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--neo-shadow-xl);
+    }
+  }
+
+  .eco-btn-shadow {
+    box-shadow: var(--neo-shadow-md);
+  }
+  .eco-btn-shadow:active {
+    transform: translate(4px, 4px);
+    box-shadow: 0px 0px 0px 0px var(--ec-forest-900);
+    transition-duration: var(--ec-d-instant);
+  }
+
+  .eco-card-mask {
+    border-radius: var(--ec-r-organic);
+  }
+
+  .brutalist-shadow {
+    box-shadow: var(--neo-shadow-lg);
+  }
+  @media (hover: hover) {
+    .brutalist-shadow-hover:hover {
+      box-shadow: var(--neo-shadow-xl);
+      transform: translate(-2px, -2px);
+    }
+  }
+
+  /* --- Dock Rail (desktop sidebar) --- */
+  .dock-rail {
+    background: var(--ec-forest-950);
+    border-right: 3px solid var(--ec-mint-500);
+    color: var(--ec-forest-200);
+  }
+  .dock-rail-logo {
+    font-family: var(--ec-font-head);
+    font-size: var(--text-xl);
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ec-mint-400);
+    text-shadow: 3px 3px 0 var(--ec-forest-700);
+  }
+  .dock-rail-divider {
+    border-bottom: 2px solid var(--ec-forest-800);
+  }
+
+  /* --- Dock Nav Item --- */
+  .dock-nav-item {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    text-decoration: none;
+    font-weight: 600;
+    transition:
+      color var(--ec-d-fast) ease,
+      transform var(--ec-d-instant) ease;
+    color: var(--ec-forest-400);
+  }
+  .dock-nav-item:active {
+    transform: scale(0.97);
+  }
+  @media (hover: hover) {
+    .dock-nav-item:hover {
+      color: var(--ec-mint-300);
+    }
+  }
+  .dock-nav-item--active {
+    color: var(--ec-forest-950) !important;
+    background: var(--ec-mint-400);
+    border-radius: var(--ec-r-sm);
+    box-shadow: 3px 3px 0 var(--ec-mint-700);
+  }
+  @media (hover: hover) {
+    .dock-nav-item--active:hover {
+      color: var(--ec-forest-950) !important;
+      transform: translate(-1px, -1px);
+      box-shadow: 4px 4px 0 var(--ec-mint-700);
+    }
+  }
+
+  /* --- Dock User Card --- */
+  .dock-user-card {
+    border-top: 2px solid var(--ec-forest-800);
+    background: rgba(0, 0, 0, 0.2);
+  }
+
+  /* --- Bottom Sheet (mobile modal pattern) --- */
+  .bottom-sheet {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--ec-z-sheet);
+    background: var(--surface-base);
+    border-radius: var(--bottom-sheet-radius) var(--bottom-sheet-radius) 0 0;
+    box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.12);
+    padding: var(--space-4);
+    padding-bottom: calc(var(--safe-bot) + var(--space-4));
+    max-height: 90dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+  .bottom-sheet-handle {
+    width: 36px;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--ec-gray-300);
+    margin: 0 auto var(--space-3);
+  }
+  .bottom-sheet-scrim {
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--ec-z-sheet) - 1);
+    background: var(--surface-scrim);
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    backdrop-filter: blur(var(--blur-sm));
+  }
+
+  /* --- Mobile Tab Bar --- */
+  .mobile-tab-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--ec-z-nav);
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    height: var(--tab-bar-height);
+    padding-bottom: var(--safe-bot);
+    background: var(--ec-forest-950);
+    border-top: 3px solid var(--ec-mint-500);
+  }
+  .mobile-tab-bar-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-width: var(--touch-target-min);
+    min-height: var(--touch-target-min);
+    padding: 4px 12px;
+    color: var(--ec-forest-400);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    font-family: var(--ec-font-mono);
+    text-decoration: none;
+    transition:
+      color var(--ec-d-fast) ease,
+      transform var(--ec-d-instant) ease;
+  }
+  .mobile-tab-bar-item:active {
+    transform: scale(0.92);
+  }
+  .mobile-tab-bar-item[aria-current="page"],
+  .mobile-tab-bar-item.is-active {
+    color: var(--ec-mint-400);
+    filter: drop-shadow(0 0 6px rgba(127, 208, 105, 0.5));
+  }
+
+  /* --- Monospace Stamp / Tech Label --- */
+  .stamp {
+    font-family: var(--ec-font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+  }
+  .stamp-wide {
+    letter-spacing: 0.4em;
+  }
+
+  /* --- Status Badge (semantic color) --- */
+  .status-badge {
+    @apply inline-flex items-center justify-center select-none;
+    padding: 0.25rem 0.625rem;
+    border-radius: var(--ec-r-pill);
+    font-size: 0.6875rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: 1px solid;
+    line-height: 1;
+  }
+  .status-badge-success {
+    background: var(--ec-success-subtle);
+    color: var(--ec-success-dark);
+    border-color: var(--ec-success-border);
+  }
+  .status-badge-danger {
+    background: var(--ec-danger-subtle);
+    color: var(--ec-danger-dark);
+    border-color: var(--ec-danger-border);
+  }
+  .status-badge-warning {
+    background: var(--ec-warning-subtle);
+    color: var(--ec-warning-fg);
+    border-color: var(--ec-warning-border);
+  }
+  .status-badge-info {
+    background: var(--ec-info-subtle);
+    color: var(--ec-info);
+    border-color: var(--ec-info-border);
+  }
+}
+
+/* ============================================================================
+   4. UTILITIES
+   ============================================================================ */
+@layer utilities {
+  /* Fluid type */
+  .text-fluid-xs {
+    font-size: var(--text-xs);
+  }
+  .text-fluid-sm {
+    font-size: var(--text-sm);
+  }
+  .text-fluid {
+    font-size: var(--text-md);
+  }
+  .text-fluid-lg {
+    font-size: var(--text-lg);
+  }
+  .text-fluid-xl {
+    font-size: var(--text-xl);
+  }
+  .text-fluid-2xl {
+    font-size: var(--text-2xl);
+  }
+  .text-fluid-3xl {
+    font-size: var(--text-3xl);
+  }
+
+  /* Fluid spacing */
+  .pad-1 {
+    padding: var(--space-1);
+  }
+  .pad-2 {
+    padding: var(--space-2);
+  }
+  .pad-3 {
+    padding: var(--space-3);
+  }
+  .pad-4 {
+    padding: var(--space-4);
+  }
+  .pad-5 {
+    padding: var(--space-5);
+  }
+
+  .gap-fluid-1 {
+    gap: var(--space-1);
+  }
+  .gap-fluid-2 {
+    gap: var(--space-2);
+  }
+  .gap-fluid-3 {
+    gap: var(--space-3);
+  }
+  .gap-fluid-4 {
+    gap: var(--space-4);
+  }
+  .gap-fluid-5 {
+    gap: var(--space-5);
+  }
+
+  .min-h-screen-dvh {
+    min-height: 100dvh;
+  }
+
+  /* Safe area utilities */
+  .pt-safe {
+    padding-top: var(--safe-top);
+  }
+  .pb-safe {
+    padding-bottom: var(--safe-bot);
+  }
+  .pl-safe {
+    padding-left: var(--safe-left);
+  }
+  .pr-safe {
+    padding-right: var(--safe-right);
+  }
+  .px-safe {
+    padding-left: var(--safe-left);
+    padding-right: var(--safe-right);
+  }
+  .py-safe {
+    padding-top: var(--safe-top);
+    padding-bottom: var(--safe-bot);
+  }
+
+  /* Layout primitives */
+  .stack > * + * {
+    margin-top: var(--stack-space, var(--space-2));
+  }
+
+  .cluster {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--cluster-space, var(--space-2));
+  }
+
+  .grid-autofit {
+    display: grid;
+    grid-template-columns: repeat(
+      auto-fit,
+      minmax(var(--cell-min, 16rem), 1fr)
+    );
+    gap: var(--grid-gap, var(--space-3));
+  }
+
+  .switcher {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+  }
+  .switcher > * {
+    flex: 1 1 calc((var(--columns, 3) - 1) * (100% / var(--columns)));
+    min-inline-size: 14rem;
+  }
+
+  /* Visual utilities */
+  .bg-hero-radial {
+    background-image: var(--grad-hero-bg);
+  }
+  .bg-gradient-primary-btn {
+    background-image: var(--grad-primary-btn);
+  }
+  .bg-canopy {
+    background-image: var(--grad-canopy);
+  }
+  .bg-rooftop {
+    background-image: var(--grad-rooftop);
+  }
+
+  .text-gradient-primary {
+    background-image: var(--grad-primary-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .text-gradient-eco {
+    background-image: var(--grad-primary-text);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    -webkit-text-fill-color: transparent !important;
+    display: inline-block;
+  }
+
+  /* Texture overlays */
+  .tx-paper,
+  .tx-speckle {
+    position: relative;
+  }
+  .tx-paper::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: var(--tx-paper);
+    mix-blend-mode: multiply;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  .tx-dotgrid {
+    background-image: var(--tx-dotgrid);
+    background-size: 28px 28px;
+  }
+
+  .mask-vine {
+    -webkit-mask-image: var(--mask-vine-arch);
+    mask-image: var(--mask-vine-arch);
+    mask-size: 120% 100%;
+    mask-position: 50% 0%;
+    overflow: hidden;
+  }
+
+  /* Text effects */
+  .text-eco-shadow {
+    text-shadow: 0 4px 30px rgba(127, 208, 105, 0.35);
+  }
+  .text-halo-soft {
+    text-shadow:
+      0 0 1px rgba(255, 255, 255, 0.85),
+      0 0 6px rgba(255, 255, 255, 0.55);
+  }
+
+  /* Scrollbar hiding */
+  .scrollbar-none {
+    scrollbar-width: none;
+  }
+  .scrollbar-none::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+    display: none;
+  }
+
+  /* Re-enable scrollbar for specific elements */
+  .show-scrollbar {
+    scrollbar-width: auto !important;
+    -ms-overflow-style: auto !important;
+  }
+  .show-scrollbar::-webkit-scrollbar {
+    width: initial !important;
+    height: initial !important;
+  }
+
+  /* Semantic text helpers */
+  .t-strong {
+    color: var(--text-strong);
+  }
+  .t-base {
+    color: var(--text-base);
+  }
+  .t-muted {
+    color: var(--text-muted);
+  }
+  .t-subtle {
+    color: var(--text-subtle);
+  }
+  .t-link {
+    color: var(--text-link);
+  }
+  .b-border {
+    border-color: var(--border);
+  }
+  .bg-elev {
+    background: var(--surface-elevated);
+  }
+  .bg-glass {
+    background: linear-gradient(
+      180deg,
+      var(--surface-glass),
+      var(--surface-glass-2)
+    );
+  }
+
+  /* iOS fill */
+  .ios-fill {
+    min-height: 100dvh;
+    height: 100dvh;
+  }
+  @supports (height: 100svh) {
+    .ios-fill {
+      min-height: 100svh;
+      height: 100svh;
+    }
+  }
+
+  /* Native-feel scroll */
+  .scroll-native {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior-y: contain;
+  }
+
+  /* Touch target (44px minimum) */
+  .touch-target {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  /* Scale on press */
+  .active-push {
+    transition: transform 100ms cubic-bezier(0.2, 0, 0, 1);
+  }
+  .active-push:active {
+    transform: scale(0.96);
+  }
+
+  /* Interactive card hover/press */
+  .card-interactive {
+    cursor: pointer;
+    transition:
+      transform var(--ec-d-fast) var(--ec-ease-out),
+      box-shadow var(--ec-d-fast) var(--ec-ease-out);
+  }
+  @media (hover: hover) {
+    .card-interactive:hover {
+      transform: translate(-2px, -2px);
+      box-shadow: var(--neo-shadow-md);
+    }
+  }
+  .card-interactive:active {
+    transform: translate(3px, 3px);
+    box-shadow: none;
+    transition-duration: 40ms;
+  }
+
+  /* No overscroll */
+  .no-overscroll {
+    overscroll-behavior: none;
+  }
+
+  /* Screen reader only */
+  .sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+  }
+
+  /* --- Eco Dot Indicator --- */
+  .ec-dot {
+    display: inline-block;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 9999px;
+    background:
+      radial-gradient(
+        circle at 30% 30%,
+        rgba(255, 255, 255, 0.85),
+        rgba(255, 255, 255, 0) 45%
+      ),
+      var(--ec-mint-500);
+    border: 1px solid var(--ec-mint-700);
+    box-shadow:
+      0 0 0 2px rgba(56, 244, 198, 0.1),
+      inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  }
+
+  /* --- Tappable Card (Depop-style press feedback) --- */
+  .tappable-card {
+    transition: all var(--ec-d-slow) var(--ec-ease-out);
+  }
+  .tappable-card:active {
+    transform: scale(0.97);
+    filter: brightness(0.95);
+    transition-duration: var(--ec-d-instant);
+  }
+
+  /* --- Soft Glass (glassmorphism layers) --- */
+  .soft-glass {
+    -webkit-backdrop-filter: blur(var(--blur-md)) saturate(var(--backdrop-saturate));
+    backdrop-filter: blur(var(--blur-md)) saturate(var(--backdrop-saturate));
+    border: 1px solid var(--border-subtle);
+  }
+  .soft-glass--light {
+    background: var(--surface-glass);
+  }
+  .soft-glass--dark {
+    background: rgba(0, 0, 0, 0.3);
+    border-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* --- Deckle Edge (paper texture shadow) --- */
+  .deckle-edge {
+    box-shadow:
+      0 1px 3px rgba(0, 0, 0, 0.02),
+      inset 0 0 100px rgba(0, 0, 0, 0.01);
+  }
+
+  /* --- Neo-Pop Utility Shadows --- */
+  .neo-shadow-sm {
+    box-shadow: var(--neo-shadow-sm);
+  }
+  .neo-shadow-md {
+    box-shadow: var(--neo-shadow-md);
+  }
+  .neo-shadow-lg {
+    box-shadow: var(--neo-shadow-lg);
+  }
+  .neo-shadow-xl {
+    box-shadow: var(--neo-shadow-xl);
+  }
+
+  /* --- Content Padding for Tab Bar --- */
+  .pb-tab-bar {
+    padding-bottom: var(--content-bottom-inset);
+  }
+
+  /* --- Keyboard-Aware Spacing --- */
+  .pb-keyboard {
+    padding-bottom: calc(var(--keyboard-height) + var(--space-2));
+    transition: padding-bottom var(--ec-d-med) var(--ec-ease-out);
+  }
+
+  /* --- Gesture Safe Zones --- */
+  .gesture-safe-left {
+    padding-left: max(var(--safe-left), 12px);
+  }
+  .gesture-safe-right {
+    padding-right: max(var(--safe-right), 12px);
+  }
+
+  /* --- Pull-to-Refresh Container --- */
+  .pull-to-refresh {
+    overscroll-behavior-y: auto;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* --- Haptic Visual Feedback (pairs with useHaptics) --- */
+  .haptic-light:active {
+    transform: scale(0.98);
+    transition-duration: var(--ec-d-instant);
+  }
+  .haptic-medium:active {
+    transform: scale(0.96);
+    transition-duration: var(--ec-d-instant);
+  }
+  .haptic-heavy:active {
+    transform: scale(0.94);
+    transition-duration: var(--ec-d-instant);
+  }
+
+  /* --- Glow Effects --- */
+  .glow-mint {
+    box-shadow: 0 0 20px rgba(127, 208, 105, 0.3);
+  }
+  .glow-gold {
+    box-shadow: 0 0 20px rgba(244, 211, 94, 0.3);
+  }
+  .glow-pulse {
+    animation: eco-glow 2s ease-in-out infinite;
+  }
+
+  /* --- Studio Grid (ecodia-site aesthetic) --- */
+  .studio-bg-grid {
+    background-image: radial-gradient(
+      var(--ec-forest-800) 0.75px,
+      transparent 0
+    );
+    background-size: 24px 24px;
+  }
+
+  /* --- Text Ink (ecodia-site) --- */
+  .text-ink {
+    color: #1a1a1a;
+  }
+  .italic-display {
+    font-family: "Lora", serif;
+    font-style: italic;
+  }
+
+  /* --- Monospace All-Caps (tech label pattern) --- */
+  .mono-all-caps {
+    font-family: var(--ec-font-mono);
+    font-size: 0.625rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.4em;
+    color: var(--text-muted);
+  }
+
+  /* --- Studio Typography --- */
+  .studio-heading {
+    font-family: var(--ec-font-head);
+    font-weight: 800;
+    color: #1a1a1a;
+  }
+
+  /* --- Button Variants (Studio) --- */
+  .btn-studio-primary {
+    @apply bg-[#1A1A1A] text-white px-6 py-2 rounded-full;
+    font-family: var(--ec-font-mono);
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    transition: all var(--ec-d-med) ease;
+  }
+  @media (hover: hover) {
+    .btn-studio-primary:hover {
+      @apply bg-[#8C765A];
+    }
+  }
+
+  /* --- Responsive: Mobile-Only / Desktop-Only Visibility --- */
+  @media (min-width: 768px) {
+    .mobile-only {
+      display: none !important;
+    }
+  }
+  @media (max-width: 767px) {
+    .desktop-only {
+      display: none !important;
+    }
+  }
+}
+
+/* ============================================================================
+   5. KEYFRAMES & ANIMATIONS
+   ============================================================================ */
+
+/* --- Micro-interactions --- */
+@keyframes floatUp {
+  0% {
+    transform: translateY(4px);
+  }
+  100% {
+    transform: translateY(-4px);
+  }
+}
+
+@keyframes pulse {
+  50% {
+    opacity: 0.6;
+  }
+}
+
+@keyframes eco-mint-pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.12);
+  }
+}
+
+/* --- Ecodia signature animations --- */
+@keyframes eco-float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-8px);
+  }
+}
+
+@keyframes eco-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(127, 208, 105, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(127, 208, 105, 0.6);
+  }
+}
+
+@keyframes eco-spin-slow {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes eco-bounce {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+/* --- Page/View transitions (blur + translate) --- */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    filter: blur(6px);
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out {
+  from {
+    opacity: 1;
+    filter: blur(0);
+    transform: translateY(0);
+  }
+  to {
+    opacity: 0;
+    filter: blur(2px);
+    transform: translateY(4px);
+  }
+}
+
+/* --- Slide transitions (mobile sheets, toasts) --- */
+@keyframes slide-up {
+  from {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes slide-down {
+  from {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateY(100%);
+    opacity: 0;
+  }
+}
+
+/* --- Loading / skeleton states --- */
+@keyframes ec-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
+}
+
+/* Sliding highlight on buttons ("alive" sheen) */
+@keyframes tiny-sheen {
+  0% {
+    transform: translateX(-120%);
+    opacity: 0;
+  }
+  30% {
+    opacity: 0.4;
+  }
+  60% {
+    transform: translateX(220%);
+    opacity: 0.2;
+  }
+  100% {
+    transform: translateX(220%);
+    opacity: 0;
+  }
+}
+
+/* --- Utility animation classes --- */
+@layer utilities {
+  .animate-fade-in {
+    animation: fade-in var(--ec-d-slow) var(--ec-ease-out) both;
+  }
+  .animate-fade-out {
+    animation: fade-out var(--ec-d-med) ease-in both;
+  }
+  .animate-slide-up {
+    animation: slide-up var(--ec-d-slow) var(--ec-ease-spring) both;
+  }
+  .animate-slide-down {
+    animation: slide-down var(--ec-d-slow) ease-in both;
+  }
+  .animate-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--surface-subtle) 25%,
+      var(--surface-glass) 50%,
+      var(--surface-subtle) 75%
+    );
+    background-size: 400% 100%;
+    animation: ec-shimmer 1.5s ease-in-out infinite;
+  }
+  .animate-float {
+    animation: eco-float 3s ease-in-out infinite;
+  }
+  .animate-glow {
+    animation: eco-glow 2s ease-in-out infinite;
+  }
+  .animate-bounce-eco {
+    animation: eco-bounce 2s ease-in-out infinite;
+  }
+  .animate-spin-slow {
+    animation: eco-spin-slow 8s linear infinite;
+  }
+}
+
+/* ============================================================================
+   6. ACCESSIBILITY — Reduced motion, focus visibility, high contrast
+   ============================================================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 1ms !important;
+    scroll-behavior: auto !important;
+  }
+  .btn {
+    transform: none !important;
+  }
+}
+
+/* High-contrast mode — thicken borders, remove transparency */
+@media (prefers-contrast: more) {
+  :root {
+    --border: rgba(0, 0, 0, 0.25);
+    --border-subtle: rgba(0, 0, 0, 0.15);
+    --surface-glass: rgba(255, 255, 255, 0.95);
+    --surface-glass-2: rgba(255, 255, 255, 0.9);
+  }
+}
+
+/* ============================================================================
+   7. RESPONSIVE — Touch-density & layout breakpoints
+   ============================================================================ */
+
+/* Small phones (< 375px) — tighter spacing */
+@media (max-width: 374px) {
+  :root {
+    --space-3: 0.625rem;
+    --space-4: 0.875rem;
+    --tab-bar-height: 52px;
+  }
+}
+
+/* Tablets (768px+) — more breathing room */
+@media (min-width: 768px) {
+  :root {
+    --tab-bar-height: 0px;
+    --content-bottom-inset: var(--safe-bot);
+  }
+}
+
+/* Desktop (1024px+) — full desktop density */
+@media (min-width: 1024px) {
+  :root {
+    --header-height: 64px;
+  }
+}
+
+/* Touch device: ensure all interactive elements have comfortable targets */
+@media (pointer: coarse) {
+  :root {
+    --touch-target-min: 48px;
+  }
+}
+
+/* ============================================================================
+   8. NEO-POP BRUTALIST AMPLIFICATIONS
+   Heavy border, hard shadow, raw block patterns — max signal strength.
+   ============================================================================ */
+
+/* --- Brutalist Section Label (stamp tab above a content block) ---
+   Usage: <div class="brutalist-label">SECTION TITLE</div>
+   Must be immediately before its sibling block (border-bottom: none) */
+.brutalist-label {
+  display: inline-block;
+  width: fit-content;
+  background: var(--ec-mint-500);
+  border: 3px solid var(--ec-forest-900);
+  border-bottom: none;
+  padding: 0.4rem 1rem;
+  font-family: var(--ec-font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ec-forest-950);
+}
+
+.brutalist-label--gold {
+  background: var(--ec-gold-500);
+}
+
+.brutalist-label--dark {
+  background: var(--ec-forest-950);
+  color: var(--ec-mint-400);
+}
+
+/* --- Brutalist Block (the block that follows a brutalist-label) ---
+   Pairs with .brutalist-label. Heavy bordered container, hard shadow. */
+.brutalist-block {
+  border: 3px solid var(--ec-forest-900);
+  box-shadow: 8px 8px 0 var(--ec-forest-900);
+  background: var(--ec-white);
+  position: relative;
+  overflow: hidden;
+}
+
+.brutalist-block--dark {
+  background: var(--ec-forest-950);
+  box-shadow: 8px 8px 0 var(--ec-mint-500);
+}
+
+.brutalist-block--gold {
+  background: var(--ec-white);
+  box-shadow: 8px 8px 0 var(--ec-gold-500);
+}
+
+/* --- Raw Neo-Pop Button (square, no border-radius) ---
+   The sharpest, most uncompromising button. Use for primary CTAs. */
+.btn-neo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--ec-mint-500);
+  color: var(--ec-forest-950);
+  border: 3px solid var(--ec-mint-300);
+  box-shadow: 6px 6px 0 var(--ec-mint-800);
+  padding: 0.875rem 2rem;
+  font-family: var(--ec-font-head);
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 0;
+  transition: transform 80ms ease, box-shadow 80ms ease;
+  white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .btn-neo:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 9px 9px 0 var(--ec-mint-800);
+  }
+}
+
+.btn-neo:active {
+  transform: translate(4px, 4px);
+  box-shadow: 2px 2px 0 var(--ec-mint-800);
+  transition-duration: 40ms;
+}
+
+.btn-neo--gold {
+  background: var(--ec-gold-500);
+  border-color: var(--ec-gold-300);
+  box-shadow: 6px 6px 0 var(--ec-gold-800);
+}
+
+@media (hover: hover) {
+  .btn-neo--gold:hover {
+    box-shadow: 9px 9px 0 var(--ec-gold-800);
+  }
+}
+
+.btn-neo:active.btn-neo--gold {
+  box-shadow: 2px 2px 0 var(--ec-gold-800);
+}
+
+.btn-neo--dark {
+  background: var(--ec-forest-950);
+  color: var(--ec-mint-400);
+  border-color: var(--ec-forest-700);
+  box-shadow: 6px 6px 0 var(--ec-forest-800);
+}
+
+/* --- Brutalist Stat Block --- */
+.stat-block {
+  background: var(--ec-forest-950);
+  border: 2px solid var(--ec-forest-800);
+  padding: var(--space-3);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.stat-block__label {
+  font-family: var(--ec-font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--ec-forest-500);
+}
+
+.stat-block__value {
+  font-family: var(--ec-font-head);
+  font-size: clamp(1.5rem, 6vw, 2.5rem);
+  font-weight: 800;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  color: var(--ec-mint-400);
+  text-shadow: 2px 2px 0 var(--ec-forest-900);
+}
+
+/* --- Brutalist Inset Tag (inside cards, mono label) --- */
+.inset-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: var(--ec-forest-900);
+  border: 1px solid var(--ec-forest-700);
+  padding: 0.25rem 0.6rem;
+  font-family: var(--ec-font-mono);
+  font-size: 0.55rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ec-mint-500);
+}
+
+.inset-tag--mint {
+  background: var(--ec-mint-500);
+  border-color: var(--ec-mint-300);
+  color: var(--ec-forest-950);
+  box-shadow: 2px 2px 0 var(--ec-mint-800);
+}
+
+.inset-tag--gold {
+  background: var(--ec-gold-500);
+  border-color: var(--ec-gold-300);
+  color: var(--ec-forest-950);
+  box-shadow: 2px 2px 0 var(--ec-gold-800);
+}
+
+/* --- Grid Divide (shared border collapse for stat grids) ---
+   Wrap stat cards in .grid-divide; they share borders seamlessly. */
+.grid-divide {
+  display: grid;
+  border: 3px solid var(--ec-forest-800);
+  box-shadow: 6px 6px 0 var(--ec-forest-800);
+}
+
+.grid-divide > * {
+  border: none;
+}
+
+/* Borders between cells via row/col separators */
+.grid-divide > * + * {
+  border-top: 2px solid var(--ec-forest-800);
+}
+
+/* --- Overline Stamp (text above headings) --- */
+.overline-stamp {
+  font-family: var(--ec-font-mono);
+  font-size: 0.6rem;
+  font-weight: 700;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--ec-mint-600);
+  display: block;
+}
+
+/* --- Brutalist Text Shadow Heading --- */
+.heading-shadow-mint {
+  text-shadow: 4px 4px 0 var(--ec-mint-800);
+}
+
+.heading-shadow-gold {
+  text-shadow: 4px 4px 0 var(--ec-gold-800);
+}
+
+.heading-shadow-dark {
+  text-shadow: 4px 4px 0 var(--ec-forest-900);
+}
+
+/* --- Accent Bar (thin colored vertical bar on left of a card) --- */
+.accent-bar-left {
+  border-left: 4px solid var(--ec-mint-500);
+}
+
+.accent-bar-left--gold {
+  border-left-color: var(--ec-gold-500);
+}
+
+.accent-bar-left--danger {
+  border-left-color: var(--ec-danger);
+}
+
+/* --- Mobile-optimised card that doesn't require border-radius --- */
+@media (max-width: 767px) {
+  /* On mobile, brutalist cards go edge-to-edge when inside containers */
+  .card-brutalist-full-mobile {
+    border-left: none;
+    border-right: none;
+    border-radius: 0;
+  }
+}
