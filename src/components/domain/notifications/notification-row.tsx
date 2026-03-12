@@ -39,7 +39,7 @@ function getNotificationMeta(notification: Notification): NotificationMeta {
       const rewardParts: string[] = [];
       if (xp) rewardParts.push(`+${xp} XP`);
       if (eco) rewardParts.push(`+${eco} ECO`);
-      const reward = rewardParts.length > 0 ? ` — ${rewardParts.join(", ")}` : "";
+      const reward = rewardParts.length > 0 ? ` - ${rewardParts.join(", ")}` : "";
       return {
         icon: <CheckCircle className="w-4 h-4" />,
         iconBg: "var(--ec-gold-500)",

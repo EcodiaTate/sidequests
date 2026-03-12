@@ -559,7 +559,7 @@ export async function getBusinessMetrics(businessId: string): Promise<BusinessMe
 }
 
 // ---------------------------------------------------------------------------
-// QR Claim (simplified — full logic lives in Edge Function)
+// QR Claim (simplified - full logic lives in Edge Function)
 // ---------------------------------------------------------------------------
 
 export async function claimBusinessQr(

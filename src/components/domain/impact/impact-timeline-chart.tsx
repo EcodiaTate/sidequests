@@ -220,7 +220,7 @@ export function ImpactTimelineChart({ data }: Props) {
             ) : null
           )}
 
-          {/* X-axis labels — show first, middle, last */}
+          {/* X-axis labels - show first, middle, last */}
           {[0, Math.floor((pointCount - 1) / 2), pointCount - 1].map((i) => {
             const p = data[i];
             if (!p) return null;

@@ -45,7 +45,7 @@ export function BusinessReviewsSection({ businessId, initialReviews, currentUser
 
   function handleSubmitted() {
     setShowForm(false);
-    // Refresh by reloading the page — simple and correct
+    // Refresh by reloading the page - simple and correct
     window.location.reload();
   }
 

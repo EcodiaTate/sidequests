@@ -95,7 +95,7 @@ export function FeedClient({ initialItems, initialCursor, currentUserId }: Props
             boxShadow: "var(--neo-shadow-sm)",
           }}
         >
-          {newCount} new post{newCount !== 1 ? "s" : ""} — tap to refresh
+          {newCount} new post{newCount !== 1 ? "s" : ""} - tap to refresh
         </button>
       )}
 

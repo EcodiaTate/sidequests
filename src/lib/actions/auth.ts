@@ -34,7 +34,7 @@ export async function login(
   });
 
   if (error) {
-    // Deliberately vague — don't reveal whether the email exists
+    // Deliberately vague - don't reveal whether the email exists
     return { error: "Invalid email or password" };
   }
 
@@ -79,7 +79,7 @@ export async function signup(
     return { error: "Unable to create account. Please try again." };
   }
 
-  // Don't redirect — user must confirm email first
+  // Don't redirect - user must confirm email first
   return {
     success: true,
     message: "Check your email for a confirmation link",

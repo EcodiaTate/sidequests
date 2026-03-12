@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Sidequests</string>
+    <string name="title_activity_main">Sidequests</string>
+    <string name="package_name">au.ecodia.sidequests</string>
+    <string name="custom_url_scheme">au.ecodia.sidequests</string>
+</resources>

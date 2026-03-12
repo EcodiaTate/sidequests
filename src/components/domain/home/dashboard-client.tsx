@@ -139,7 +139,7 @@ export function DashboardClient({
             </span>
           </div>
 
-          {/* Name — massive brutalist type */}
+          {/* Name - massive brutalist type */}
           <h1
             style={{
               fontFamily: "var(--ec-font-head)",
@@ -196,7 +196,7 @@ export function DashboardClient({
         </div>
       </div>
 
-      {/* ── STAT GRID — 2-col mobile, 4-col desktop ── */}
+      {/* ── STAT GRID - 2-col mobile, 4-col desktop ── */}
       <div
         style={{
           display: "grid",
@@ -404,7 +404,7 @@ export function DashboardClient({
               textShadow: weeklyRank?.rank ? "2px 2px 0 var(--ec-forest-900)" : "none",
             }}
           >
-            {weeklyRank?.rank ? `#${weeklyRank.rank}` : "—"}
+            {weeklyRank?.rank ? `#${weeklyRank.rank}` : "-"}
           </span>
         </div>
       </div>
@@ -442,7 +442,7 @@ export function DashboardClient({
           </span>
         </div>
 
-        {/* Quest card wrapper — boxed in */}
+        {/* Quest card wrapper - boxed in */}
         <div
           style={{
             border: "2px solid var(--ec-forest-800)",

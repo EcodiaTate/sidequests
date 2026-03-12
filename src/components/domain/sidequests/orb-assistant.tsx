@@ -15,7 +15,7 @@ const SUGGESTION_CHIPS = [
   { label: "Quick win", query: "quick easy fast" },
 ];
 
-// Typing indicator — 3 bouncing dots
+// Typing indicator - 3 bouncing dots
 function TypingDots() {
   return (
     <div className="flex items-center gap-1 py-2 px-1">

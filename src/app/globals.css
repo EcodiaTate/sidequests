@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 /* ============================================================================
-   ECODIA DESIGN SYSTEM — Tailwind CSS 4
+   ECODIA DESIGN SYSTEM - Tailwind CSS 4
    Neo-Pop Brutalist · Mobile-Native · Touch-First
    Unified branding across ecodia-site & frontend | 2026-02-24
    ============================================================================
 
    AESTHETIC PRINCIPLES:
-   ─ Bold, saturated color (mint / gold / forest) — never pastel
-   ─ Hard offset shadows (no blur) for depth — the neo-pop signature
+   ─ Bold, saturated color (mint / gold / forest) - never pastel
+   ─ Hard offset shadows (no blur) for depth - the neo-pop signature
    ─ Thick 2–4px borders on feature cards & hero elements
    ─ Asymmetric border-radius mixes (organic curves + hard geometry)
    ─ Multi-layer gradients (radial orbs, 3-layer button shadows)
@@ -110,7 +110,7 @@
   --color-border-subtle: var(--border-subtle);
   --color-ring: var(--ring);
 
-  /* Font families — TW4 uses --font-{name} → font-{name} utility */
+  /* Font families - TW4 uses --font-{name} → font-{name} utility */
   --font-heading: var(--ec-font-head);
   --font-body: var(--ec-font-body);
   --font-mono: var(--ec-font-mono);
@@ -122,7 +122,7 @@
 
 :root {
   /* ==========================================================================
-     1a. FLUID SCALE — Responsive spacing & type via clamp()
+     1a. FLUID SCALE - Responsive spacing & type via clamp()
      ========================================================================== */
   --space-1: clamp(0.25rem, 0.2rem + 0.3vw, 0.5rem);
   --space-2: clamp(0.5rem, 0.35rem + 0.6vw, 1rem);
@@ -142,7 +142,7 @@
   --text-3xl: clamp(1.875rem, 1.5rem + 2vw, 3rem);
 
   /* ==========================================================================
-     1b. SAFE AREAS — Native device insets (notch, Dynamic Island, gesture bar)
+     1b. SAFE AREAS - Native device insets (notch, Dynamic Island, gesture bar)
      ========================================================================== */
   --safe-top: env(safe-area-inset-top, 0px);
   --safe-bot: env(safe-area-inset-bottom, 0px);
@@ -150,7 +150,7 @@
   --safe-right: env(safe-area-inset-right, 0px);
 
   /* ==========================================================================
-     1c. BRAND PALETTE — Saturated, never pastel
+     1c. BRAND PALETTE - Saturated, never pastel
      ========================================================================== */
   --ec-mint-50: #f1fbee;
   --ec-mint-100: #e3f7de;
@@ -204,7 +204,7 @@
   --ec-gray-900: #0b1310;
 
   /* ==========================================================================
-     1d. STATUS / SEMANTIC COLORS — Danger, success, warning, info
+     1d. STATUS / SEMANTIC COLORS - Danger, success, warning, info
      ========================================================================== */
   --ec-danger: #ef4444;
   --ec-danger-fg: #ffffff;
@@ -257,7 +257,7 @@
   --on-brand-mint: var(--ec-forest-950);
 
   /* ==========================================================================
-     1f. TYPOGRAPHY — Fjalla One (display) / Inter (body) / JetBrains Mono (tech)
+     1f. TYPOGRAPHY - Fjalla One (display) / Inter (body) / JetBrains Mono (tech)
      ========================================================================== */
   --ec-font-head:
     "Fjalla One", system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
@@ -271,7 +271,7 @@
   --ec-lh-body: 1.55;
 
   /* ==========================================================================
-     1g. BORDER RADIUS — Soft curves to pill shapes
+     1g. BORDER RADIUS - Soft curves to pill shapes
      ========================================================================== */
   --ec-r-sm: 0.5rem;
   --ec-r-md: 0.75rem;
@@ -285,7 +285,7 @@
   --ec-r-organic: 60px 20px 70px 30px / 30px 60px 30px 70px;
 
   /* ==========================================================================
-     1h. SHADOWS / ELEVATION — Soft to dramatic
+     1h. SHADOWS / ELEVATION - Soft to dramatic
      ========================================================================== */
   --ec-elev-1: 0 4px 12px rgba(0, 0, 0, 0.05);
   --ec-elev-2: 0 8px 20px rgba(127, 208, 105, 0.25);
@@ -293,7 +293,7 @@
   --ec-elev-4: 0 20px 40px rgba(0, 0, 0, 0.3);
   --ec-inset-1: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 
-  /* NEO-POP HARD OFFSET SHADOWS — The signature aesthetic.
+  /* NEO-POP HARD OFFSET SHADOWS - The signature aesthetic.
      Zero blur, pure offset. Use with thick borders for the full effect. */
   --neo-shadow-sm: 4px 4px 0px 0px var(--ec-forest-900);
   --neo-shadow-md: 8px 8px 0px 0px var(--ec-forest-900);
@@ -310,7 +310,7 @@
   --neo-border-thick: 4px;
 
   /* ==========================================================================
-     1i. GLASS / BACKDROP — Frosted layers
+     1i. GLASS / BACKDROP - Frosted layers
      ========================================================================== */
   --blur-sm: 4px;
   --blur-md: 8px;
@@ -319,7 +319,7 @@
   --backdrop-saturate: 110%;
 
   /* ==========================================================================
-     1j. TIMING / EASING — Tactile interaction physics
+     1j. TIMING / EASING - Tactile interaction physics
      ========================================================================== */
   --ec-d-instant: 40ms;
   --ec-d-fast: 160ms;
@@ -481,7 +481,7 @@
   --rank-silver: #c0c0c0;
   --rank-bronze: #cd7f32;
 
-  /* Eco-Local — Business & Offers */
+  /* Eco-Local - Business & Offers */
   --pledge-starter: var(--ec-mint-400);
   --pledge-starter-fg: #1a3a1d;
   --pledge-starter-bg: var(--ec-mint-50);
@@ -527,7 +527,7 @@
   --biz-type-online: var(--ec-mint-600);
   --biz-type-hybrid: var(--ec-gold-500);
 
-  /* Studio — Marketplace */
+  /* Studio - Marketplace */
   --order-pending: var(--ec-gold-500);
   --order-pending-fg: #3a2a00;
   --order-pending-bg: var(--ec-gold-50);
@@ -569,7 +569,7 @@
 }
 
 /* ==========================================================================
-   DARK MODE — System preference
+   DARK MODE - System preference
    ========================================================================== */
 @media (prefers-color-scheme: dark) {
   :root {
@@ -594,14 +594,14 @@
     --border-subtle: rgba(255, 255, 255, 0.08);
     --border-strong: rgba(255, 255, 255, 0.2);
 
-    /* Elevation — darker, less blur-visible */
+    /* Elevation - darker, less blur-visible */
     --ec-elev-1: 0 4px 12px rgba(0, 0, 0, 0.15);
     --ec-elev-2: 0 8px 20px rgba(127, 208, 105, 0.15);
     --ec-elev-3: 0 10px 28px rgba(0, 0, 0, 0.2);
     --ec-elev-4: 0 20px 40px rgba(0, 0, 0, 0.25);
     --ec-inset-1: inset 0 1px 0 rgba(255, 255, 255, 0.1);
 
-    /* Neo-pop offset shadows — lighter anchor in dark mode */
+    /* Neo-pop offset shadows - lighter anchor in dark mode */
     --neo-shadow-sm: 4px 4px 0px 0px rgba(255, 255, 255, 0.08);
     --neo-shadow-md: 8px 8px 0px 0px rgba(255, 255, 255, 0.06);
     --neo-shadow-lg: 12px 12px 0px 0px rgba(255, 255, 255, 0.05);
@@ -615,7 +615,7 @@
     --on-brand-sun: var(--ec-ink);
     --on-brand-mint: var(--ec-ink);
 
-    /* Status — brighter in dark mode for legibility */
+    /* Status - brighter in dark mode for legibility */
     --ec-danger-subtle: rgba(239, 68, 68, 0.15);
     --ec-danger-border: rgba(239, 68, 68, 0.3);
     --ec-success-subtle: rgba(16, 185, 129, 0.15);
@@ -631,7 +631,7 @@
   }
 }
 
-/* Forced light mode — manual toggle override */
+/* Forced light mode - manual toggle override */
 html[data-theme="light"] {
   --surface-base: var(--ec-pearl);
   --surface-subtle: var(--ec-gray-50);
@@ -662,7 +662,7 @@ html[data-theme="light"] {
   --on-brand-mint: var(--ec-forest-950);
 }
 
-/* Forced dark mode — manual toggle override */
+/* Forced dark mode - manual toggle override */
 html[data-theme="dark"] {
   --surface-base: var(--ec-gray-900);
   --surface-subtle: #0c0f0c;
@@ -713,7 +713,7 @@ html[data-theme="dark"] {
    ============================================================================ */
 @layer base {
   /* ========================================================================
-     RESETS & BEHAVIOR — App-like native feel
+     RESETS & BEHAVIOR - App-like native feel
      ======================================================================== */
   *,
   *::before,
@@ -799,7 +799,7 @@ html[data-theme="dark"] {
   }
 
   /* ========================================================================
-     TYPOGRAPHY — Fjalla One (bold display) + Inter (clean body)
+     TYPOGRAPHY - Fjalla One (bold display) + Inter (clean body)
      Uppercase headings, tight tracking, commanding presence.
      ======================================================================== */
   h1,
@@ -899,7 +899,7 @@ html[data-theme="dark"] {
   }
 
   /* ========================================================================
-     SCROLLBAR HIDING — App-like, no visible chrome
+     SCROLLBAR HIDING - App-like, no visible chrome
      ======================================================================== */
   html,
   body,
@@ -1277,19 +1277,19 @@ html[data-theme="dark"] {
     transition-duration: var(--ec-d-instant);
   }
 
-  /* Brutalist card — mint accent variant */
+  /* Brutalist card - mint accent variant */
   .card-brutalist-mint {
     border-color: var(--ec-mint-600);
     box-shadow: var(--neo-shadow-mint);
   }
 
-  /* Brutalist card — gold accent variant */
+  /* Brutalist card - gold accent variant */
   .card-brutalist-gold {
     border-color: var(--ec-gold-600);
     box-shadow: var(--neo-shadow-gold);
   }
 
-  /* Brutalist card — danger variant */
+  /* Brutalist card - danger variant */
   .card-brutalist-danger {
     border-color: var(--ec-danger-dark);
     box-shadow: var(--neo-shadow-danger);
@@ -2299,7 +2299,7 @@ html[data-theme="dark"] {
 }
 
 /* ============================================================================
-   6. ACCESSIBILITY — Reduced motion, focus visibility, high contrast
+   6. ACCESSIBILITY - Reduced motion, focus visibility, high contrast
    ============================================================================ */
 @media (prefers-reduced-motion: reduce) {
   *,
@@ -2315,7 +2315,7 @@ html[data-theme="dark"] {
   }
 }
 
-/* High-contrast mode — thicken borders, remove transparency */
+/* High-contrast mode - thicken borders, remove transparency */
 @media (prefers-contrast: more) {
   :root {
     --border: rgba(0, 0, 0, 0.25);
@@ -2326,10 +2326,10 @@ html[data-theme="dark"] {
 }
 
 /* ============================================================================
-   7. RESPONSIVE — Touch-density & layout breakpoints
+   7. RESPONSIVE - Touch-density & layout breakpoints
    ============================================================================ */
 
-/* Small phones (< 375px) — tighter spacing */
+/* Small phones (< 375px) - tighter spacing */
 @media (max-width: 374px) {
   :root {
     --space-3: 0.625rem;
@@ -2338,7 +2338,7 @@ html[data-theme="dark"] {
   }
 }
 
-/* Tablets (768px+) — more breathing room */
+/* Tablets (768px+) - more breathing room */
 @media (min-width: 768px) {
   :root {
     --tab-bar-height: 0px;
@@ -2346,7 +2346,7 @@ html[data-theme="dark"] {
   }
 }
 
-/* Desktop (1024px+) — full desktop density */
+/* Desktop (1024px+) - full desktop density */
 @media (min-width: 1024px) {
   :root {
     --header-height: 64px;
@@ -2362,7 +2362,7 @@ html[data-theme="dark"] {
 
 /* ============================================================================
    8. NEO-POP BRUTALIST AMPLIFICATIONS
-   Heavy border, hard shadow, raw block patterns — max signal strength.
+   Heavy border, hard shadow, raw block patterns - max signal strength.
    ============================================================================ */
 
 /* --- Brutalist Section Label (stamp tab above a content block) ---

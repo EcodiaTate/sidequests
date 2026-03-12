@@ -47,7 +47,7 @@ export function QuestListClient({ initialQuests, initialCount }: Props) {
 
   const handleSearchChange = (value: string) => {
     setSearch(value);
-    // Debounce by not auto-fetching — user presses enter or waits
+    // Debounce by not auto-fetching - user presses enter or waits
     if (value === "") {
       fetchQuests(1, selectedKind, "");
     }

@@ -2,7 +2,7 @@ import { getNotifications } from "@/lib/actions/notifications";
 import { NotificationsClient } from "@/components/domain/notifications/notifications-client";
 
 export const metadata = {
-  title: "Notifications — Ecodia",
+  title: "Notifications - Ecodia",
 };
 
 export default async function NotificationsPage() {

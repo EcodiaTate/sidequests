@@ -90,7 +90,7 @@ function saveLocalReadIds(ids: Set<string>): void {
   try {
     localStorage.setItem(STORAGE_KEY, JSON.stringify([...ids]));
   } catch {
-    // localStorage unavailable — silent fail
+    // localStorage unavailable - silent fail
   }
 }
 

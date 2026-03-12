@@ -228,7 +228,7 @@ export type SidequestSearchResult = {
 };
 
 /**
- * searchQuestsNL — keyword-based NL search with heuristic intent parsing.
+ * searchQuestsNL - keyword-based NL search with heuristic intent parsing.
  *
  * Architecture note: this function is structured to drop in pgvector cosine
  * similarity when the semantic_profile column is populated. To enable that,
@@ -315,7 +315,7 @@ export async function searchQuestsNL(query: string): Promise<SidequestSearchResu
       .join(",");
     dbQuery = dbQuery.or(`${titleFilters},${descFilters}`);
   } else if (!inferredDifficulty && !inferredKind && !inferredVerification) {
-    // Completely unconstrained — return recent active quests
+    // Completely unconstrained - return recent active quests
     dbQuery = dbQuery.order("created_at", { ascending: false });
   }
 

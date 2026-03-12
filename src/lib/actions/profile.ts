@@ -103,7 +103,7 @@ export async function removeAvatar(): Promise<ProfileResult> {
     .single();
 
   if (profile?.avatar_url) {
-    // Extract path from URL — after /avatars/
+    // Extract path from URL - after /avatars/
     const match = profile.avatar_url.match(/\/avatars\/(.+)/);
     if (match) {
       await supabase.storage.from("avatars").remove([match[1]]);

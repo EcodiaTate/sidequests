@@ -125,7 +125,7 @@ export function TournamentCard({ tournament }: Props) {
             <CalendarDays className="w-3 h-3" />
             {dayjs(tournament.start_at).format("D MMM YYYY")}
             {tournament.end_at && (
-              <> — {dayjs(tournament.end_at).format("D MMM YYYY")}</>
+              <> - {dayjs(tournament.end_at).format("D MMM YYYY")}</>
             )}
           </span>
         )}

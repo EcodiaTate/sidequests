@@ -79,7 +79,7 @@ const BATCH_SIZE = 500;
 /**
  * Send a push notification to a list of user IDs.
  * Calls the Edge Function push-send in batches of 500.
- * Admin only — enforced by checking is_admin on the caller's profile.
+ * Admin only - enforced by checking is_admin on the caller's profile.
  */
 export async function sendPushNotification(
   userIds: string[],

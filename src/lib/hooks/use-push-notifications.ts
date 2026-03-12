@@ -22,7 +22,7 @@ type UsePushNotificationsReturn = {
  * usePushNotifications
  *
  * Provides a `requestPermission()` function that is intentionally NOT called
- * on mount — it should be triggered after a meaningful user action (e.g.
+ * on mount - it should be triggered after a meaningful user action (e.g.
  * completing their first sidequest).  This avoids the "cold ask" permission
  * anti-pattern on iOS.
  */
@@ -50,7 +50,7 @@ export function usePushNotifications(): UsePushNotificationsReturn {
     try {
       // Dynamic import to avoid SSR issues and gracefully handle missing plugin
       const { PushNotifications } = await import(
-        // @ts-expect-error — optional peer dependency
+        // @ts-expect-error - optional peer dependency
         "@capacitor/push-notifications"
       );
 
@@ -61,7 +61,7 @@ export function usePushNotifications(): UsePushNotificationsReturn {
         return;
       }
 
-      // Permission granted — register for remote notifications
+      // Permission granted - register for remote notifications
       await PushNotifications.register();
 
       // Listen for the registration token (fires once after register())

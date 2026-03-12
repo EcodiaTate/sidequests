@@ -29,7 +29,7 @@ export default async function AppLayout({
 
   if (!profile) redirect("/login");
 
-  // Legal onboarding gate — new users must complete onboarding first
+  // Legal onboarding gate - new users must complete onboarding first
   if (!profile.legal_onboarding_complete) {
     redirect("/onboarding");
   }

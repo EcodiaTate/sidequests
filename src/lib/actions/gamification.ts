@@ -238,7 +238,7 @@ export async function getLeaderboard(period: "weekly" | "monthly" | "total" = "w
       userRank = found.rank as number;
       userEntry = found;
     } else {
-      // User not in top 50 — check their rank directly
+      // User not in top 50 - check their rank directly
       const { data: myRank } = await supabase
         .from(viewName)
         .select("*")

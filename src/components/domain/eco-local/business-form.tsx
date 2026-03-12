@@ -185,7 +185,7 @@ export function BusinessForm({ business, onSaved }: Props) {
           >
             {(Object.entries(PLEDGE_TIER_CONFIG) as [PledgeTier, typeof PLEDGE_TIER_CONFIG[PledgeTier]][]).map(
               ([value, config]) => (
-                <option key={value} value={value}>{config.label} — {config.description}</option>
+                <option key={value} value={value}>{config.label} - {config.description}</option>
               )
             )}
           </select>

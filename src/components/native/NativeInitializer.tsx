@@ -2,7 +2,7 @@
 
 // npm install @capacitor/push-notifications
 // (if the push-notifications plugin is not yet installed, the dynamic import
-//  will fail silently — all push features are wrapped in try/catch)
+//  will fail silently - all push features are wrapped in try/catch)
 
 import { useEffect, useRef, useCallback } from "react";
 import { Capacitor } from "@capacitor/core";
@@ -11,7 +11,7 @@ import { useToast } from "@/components/ui/toast";
 import { savePushToken } from "@/lib/actions/push";
 
 // Exported so other components can trigger the deferred permission request
-// (e.g. after a user completes their first sidequest — avoid the cold-ask
+// (e.g. after a user completes their first sidequest - avoid the cold-ask
 //  anti-pattern that tanks iOS acceptance rates).
 let _requestPushPermission: (() => Promise<void>) | null = null;
 
@@ -30,7 +30,7 @@ export function NativeInitializer() {
   const setupPush = useCallback(async () => {
     try {
       const { PushNotifications } = await import(
-        // @ts-expect-error — optional peer dependency
+        // @ts-expect-error - optional peer dependency
         "@capacitor/push-notifications"
       );
 
@@ -80,11 +80,11 @@ export function NativeInitializer() {
 
         try {
           const { PushNotifications } = await import(
-            // @ts-expect-error — optional peer dependency
+            // @ts-expect-error - optional peer dependency
             "@capacitor/push-notifications"
           );
 
-          // Token registration — save to Supabase
+          // Token registration - save to Supabase
           PushNotifications.addListener(
             "registration",
             async (registrationToken: { value: string }) => {
@@ -102,7 +102,7 @@ export function NativeInitializer() {
             }
           );
 
-          // Foreground notification received — show an in-app toast
+          // Foreground notification received - show an in-app toast
           PushNotifications.addListener(
             "pushNotificationReceived",
             (notification: { title?: string; body?: string }) => {
@@ -111,7 +111,7 @@ export function NativeInitializer() {
             }
           );
 
-          // Notification tapped — route to the deep-link page if provided
+          // Notification tapped - route to the deep-link page if provided
           PushNotifications.addListener(
             "pushNotificationActionPerformed",
             (action: {
@@ -131,7 +131,7 @@ export function NativeInitializer() {
             }
           );
         } catch {
-          // PushNotifications plugin not installed — silently skip
+          // PushNotifications plugin not installed - silently skip
         }
       }
     }
