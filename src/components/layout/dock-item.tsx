@@ -110,7 +110,6 @@ export function DockItem({
             "w-4 h-4 shrink-0 mr-3",
             isActive ? "stroke-[2.5px]" : "stroke-2"
           )}
-          style={{ color: isActive ? "var(--ec-forest-950)" : undefined }}
         />
       )}
       {showLabel && (
